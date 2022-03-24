@@ -1,0 +1,103 @@
+<%- include('./header.ejs', {title: title}); %>
+
+<h1><%= menuTitle %></h1>
+    <table class="table table-bordered border-dark" >
+      <thead class="table-dark">
+
+        <tr>
+          <td class="col">Shpt</td>
+          <td class="col">DP</td>
+          <td class="col">Delivery</td>
+          <td class="col">Country</td>
+          <td class="col">Items</td>
+          <td class="col">Orde</td>
+          <td class="col">Sto.Location</td>
+          <td class="col">Ship-To</td>
+          <td class="col">Shipment No</td>
+          <td class="col">Wave No</td>
+          <td class="col">TO#</td>
+          <td class="col">Item</td>
+          <td class="col">Material</td>
+          <td class="col">Type</td>
+          <td class="col">Bin</td>
+          <td class="col">Qty</td>
+          <td class="col">CS</td>
+          <td class="col">Batch</td>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i < data.length; i++) { %>
+           <tr>
+             
+            
+             
+             <td><%= data[i]['Shpt'] %>  <% if (data[i]['CN_Ctrl_Parts'] == 1) { %>
+              <ion-icon style="width:25px; height:25px" src="/img/china_flag.svg"></ion-icon>
+            <% } %></td>
+             <td><%= data[i]['DP'] %></td>
+             <td>
+               <table>
+                <td><%= data[i]['Delivery'] %></td>
+                <% if (!(data[i]['WaveGrpNo']).match('200*')  ) { %>
+                  <td>
+                  <button type="button" class="btn btn-default"
+                          onclick="confirmation(`<%= data[i]['ShipmentNo']%>`)">
+                          <ion-icon style="color: #c0392b;" name="trash-bin"></ion-icon>
+                        </button>
+                </td>
+               <% } %>
+               </table>
+             </td>
+             
+             <td><%= data[i]['Country'] %></td>
+             <td><%= data[i]['Items'] %></td>
+             <td><%= data[i]['Ordes'] %></td>
+             <td><%= data[i]['StorageLocation'] %></td>
+             <td><%= data[i]['ShipTo'] %></td>
+             <td><%= data[i]['ShipmentNo'] %></td>
+             <td>
+              <table>
+                <td><%= data[i]['WaveGrpNo'] %></td>
+                <% if ((data[i]['WaveGrpNo']).match('200*')  ) { %>
+                  <td>
+                  <button type="button" class="btn btn-default"
+                          onclick="">
+                          <ion-icon style="color: #c0392b;" name="trash-bin"></ion-icon>
+                        </button>
+                </td>
+               <% } %>
+              </table>
+             </td>
+           
+             
+             <td><%= data[i]['TONumber'] %></td>
+             <td><%= data[i]['Item'] %></td>
+             <td>
+               <table>
+                <td><%= data[i]['Material'] %></td>
+                <td>
+                  <button type="button" class="btn btn-default"
+                          onclick="">
+                          <ion-icon style="color: #c0392b;" name="trash-bin"></ion-icon>
+                        </button>
+                </td>
+               </table>
+             </td>
+            
+             <td><%= data[i]['Source_Typ'] %></td>
+             <td><%= data[i]['Source_Bin'] %></td>
+             <td><%= data[i]['Sourcetargetqty'] %></td>
+             <td><%= data[i]['CS'] %></td>
+             <td><%= data[i]['Batch'] %></td>
+                  
+           </tr>
+        <% } %>
+      </tbody>
+        </table>
+        <script>
+            var confirmation = function(delivery, toNumber, itemNumber) {
+
+            }
+        </script>
+      </body>
+      </html>

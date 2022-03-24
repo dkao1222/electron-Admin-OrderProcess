@@ -1,0 +1,76 @@
+<%- include('./header.ejs', {title: title}); %>
+
+<h1><%= menuTitle %></h1>
+    <table class="table table-bordered border-dark" >
+      <thead class="table-dark">
+
+        <tr>
+          <td class="col">Shpt</td>
+          <td class="col">DP</td>
+          <td class="col">Delivery</td>
+          <td class="col">Country</td>
+          <td class="col">Item</td>
+          <td class="col">Orde</td>
+          <td class="col">Sto.Location</td>
+          <td class="col">Ship-To</td>
+          <td class="col">Consignee</td>
+          <td class="col">DN Create On</td>
+          <td class="col">DN Create Time</td>
+          <td class="col">Shipment No</td>
+          <td class="col">Shp Create Date</td>
+          <td class="col">Shp Create Time</td>
+          <td class="col">Shp. Condition</td>
+          <td class="col">ProformaD</td>
+          <td class="col text-wrap">Over All Picking Status</td>
+          <td class="col text-wrap">Over All WM Status</td>
+          <td class="col text-wrap">Over All GM Status</td>
+          <td class="col">Wave No</td>
+          <td class="col">Instructions</td>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i < data.length; i++) { %>
+           <tr>
+             <td class="text-center"><%= data[i]['ShPt'] %></td>
+             <td><%= data[i]['DP'] %></td>
+             <td class="text-center"><%= data[i]['Delivery'] %></td>
+             <td><%= data[i]['Country'] %></td>
+             <td><%= data[i]['#Items'] %></td>
+             <td><%= data[i]['Orde'] %></td>
+             <td><%= data[i]['StorageLocation'] %></td>
+             <td><%= data[i]['Ship-To'] %></td>
+             <td><%= data[i]['Consignee"'] %></td>
+             <td><%= data[i]['Createdon'] %></td>
+             <td><%= data[i]['Time'] %></td>
+             <td><%= data[i]['ShipmentNo'] %></td>
+             <td><%= data[i]['ShipmentCreateDate'] %></td>
+             <td><%= data[i]['ShipmentCreateTime'] %></td>
+             <td><%= data[i]['ShippingCondition'] %></td>
+             <td><%= data[i]['ProformaD'] %></td>
+             <% if (data[i]['OverallPickingStatus'] === 'C') { %>
+              <td style="background-color: green;"><%= data[i]['OverallPickingStatus'] %></td>
+             <% } else { %>
+              <td style="background-color: red"><%= data[i]['OverallPickingStatus'] %></td>
+              <% } %>
+              <% if (data[i]['OverallWMStatus'] === 'C') { %>
+                <td style="background-color: green;"><%= data[i]['OverallWMStatus'] %></td>
+               <% } else { %>
+                <td style="background-color: red"><%= data[i]['OverallWMStatus'] %></td>
+                <% } %>
+                <% if (data[i]['OverallGMStatus'] === 'C') { %>
+                  <td style="background-color: green;"><%= data[i]['OverallGMStatus'] %></td>
+                 <% } else { %>
+                  <td style="background-color: red"><%= data[i]['OverallGMStatus'] %></td>
+                  <% } %>
+             
+             <td><%= data[i]['WaveGrpNo'] %></td>
+             <td><%= data[i]['ShippingInstructions'] %></td>
+
+
+           </tr>
+        <% } %>
+      </tbody>
+        </table>
+
+      </body>
+      </html>

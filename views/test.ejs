@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+   
+
+      <table>
+        <th>
+          <td>Shpt</td>
+          <td>DP</td>
+          <td>Delivery</td>
+          <td>Country</td>
+          <td>Item</td>
+          <td>Orde</td>
+          <td>Sto.Location</td>
+          <td>Ship-To</td>
+          <td>Consignee</td>
+          <td>Create On</td>
+          <td>Create Time</td>
+          <td>Shipment No</td>
+          <td>Shp Create Date</td>
+          <td>Shp Create Time</td>
+          <td>Shp. Condition</td>
+          <td>ProformaD</td>
+          <td>OverAllPickingStatus</td>
+          <td>OverAllWMStatus</td>
+          <td>OverAllGMStatus</td>
+          <td>Wave No</td>
+          <td>Instructions</td>
+        </th>
+        <% for(var i=0; i < data.length; i++) { %>
+           <tr>
+             <td><%= data[i]['ShPt'] %></td>
+             <td><%= data[i]['DP'] %></td>
+             <td><%= data[i]['Delivery'] %></td>
+             <td><%= data[i]['Country'] %></td>
+             <td><%= data[i]['#Items'] %></td>
+             <td><%= data[i]['Orde'] %></td>
+             <td><%= data[i]['StorageLocation'] %></td>
+             <td><%= data[i]['Ship-To'] %></td>
+             <td><%= data[i]['Consignee"'] %></td>
+             <td><%= data[i]['Createdon'] %></td>
+             <td><%= data[i]['ShipmentNo'] %></td>
+             <td><%= data[i]['ShipmentCreateDate'] %></td>
+             <td><%= data[i]['ShipmentCreateTime'] %></td>
+             <td><%= data[i]['ShippingCondition'] %></td>
+             <td><%= data[i]['ProformaD'] %></td>
+             <% if (data[i]['OverallPickingStatus'] === 'C') { %>
+              <td style="background-color: green;"><%= data[i]['OverallPickingStatus'] %></td>
+             <% } else { %>
+              <td style="background-color: red"><%= data[i]['OverallPickingStatus'] %></td>
+              <% } %>
+              <% if (data[i]['OverallWMStatus'] === 'C') { %>
+                <td style="background-color: green;"><%= data[i]['OverallWMStatus'] %></td>
+               <% } else { %>
+                <td style="background-color: red"><%= data[i]['OverallWMStatus'] %></td>
+                <% } %>
+                <% if (data[i]['OverallGMStatus'] === 'C') { %>
+                  <td style="background-color: green;"><%= data[i]['OverallGMStatus'] %></td>
+                 <% } else { %>
+                  <td style="background-color: red"><%= data[i]['OverallGMStatus'] %></td>
+                  <% } %>
+             
+             <td><%= data[i]['WaveGrpNo'] %></td>
+             <td><%= data[i]['ShippingInstructions'] %></td>
+
+
+           </tr>
+        <% } %>
+        </table>
+
+      
+    
+</body>
+</html>
+

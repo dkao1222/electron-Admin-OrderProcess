@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self';">-->
+
+    <title>Rule Assign</title>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col">
+            <h3>Country</h3>
+            <select style="width:200px;" id="country">
+
+            </select>
+
+        </div>
+        <div class="col">
+            <h3>Condition</h3>
+            <select style="width:200px;" id="condition">
+
+            </select>
+
+        </div>
+        <div class="col">
+            <h3>Shipping Point</h3>
+            <select style="width:200px;" id="Point">
+
+            </select>
+
+        </div>
+        <div class="col">
+            <h3>Ship-To Code</h3>
+            <select style="width:200px;" id="ShipTo">
+
+            </select>
+
+        </div>
+        <div class="col">
+            <h3>Forward</h3>
+            <select style="width:200px;" id="Forward">
+
+            </select>
+
+        </div>
+    </div>
+    <input type="checkbox" id="mon" value="0">
+    <label for="vehicle1"> Mon. </label><br>
+    <input type="checkbox" id="tue" value="0">
+    <label for="vehicle1"> Tue. </label><br>
+    <input type="checkbox" id="wed" value="0">
+    <label for="vehicle1"> Wed. </label><br>
+    <input type="checkbox" id="thu" value="0">
+    <label for="vehicle1"> Thu. </label><br>
+    <input type="checkbox" id="fri" value="0">
+    <label for="vehicle1"> Fri. </label><br>
+    <input type="checkbox" id="sat" value="0">
+    <label for="vehicle1"> Sat. </label><br>
+    <input type="checkbox" id="sun" value="0">
+    <label for="vehicle1"> Sun. </label><br>
+    </br>
+
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-primary" onclick="submitBtn()">Primary</button>
+        </div>
+    </div>
+
+
+    <script src="functions/ruleassign.js"></script>
+</body>
+
+</html>

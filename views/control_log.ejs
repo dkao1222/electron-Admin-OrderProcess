@@ -1,0 +1,390 @@
+<%- include('./header.ejs', {title: title}); %>
+
+  <% if (data.length==0 ) { %>
+    <script
+      language="javascript"> location.replace("/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=1")</script>
+    <% } %>
+
+      <h1>
+        <%= menuTitle %>
+      </h1>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          
+          <% if (Number(paggingData['currentPage']) == 1) { %> 
+            <li class="page-item disabled"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a></li>
+          <% } else { %>
+          <li class="page-item"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a></li>
+          <% } %>
+          
+          
+          <% for(var i=1; i <= paggingData['pagePadding']; i++) { %>
+            <% if (i==paggingData['currentPage'] ) { %>
+              <li class="page-item disabled"><a class="page-link"
+                  href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
+                  <%= i %>
+                </a></li>
+              <% } else { %>
+                <li class="page-item"><a class="page-link"
+                    href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
+                    <%= i %>
+                  </a></li>
+                <% } %>
+                  <% } %>
+          <% if ( Number(paggingData['pagePadding']) == Number(paggingData['currentPage']) ) { %>
+          <li class="page-item disabled"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a></li>
+            <% } else { %>
+              <li class="page-item "><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a></li>
+          <% } %>
+        </ul>
+      </nav>
+
+      <table class="table table-bordered border-dark">
+        <thead class="table-dark">
+
+          <tr>
+            <td class="col">ImportDate</td>
+            <td class="col">LogNum</td>
+            <td class="col">Shpt</td>
+            <td class="col">DP</td>
+            <td class="col" style="width: 50px;">Shp. Condition</td>
+            <td class="col">Country</td>
+            <td class="col">Orde</td>
+            <td class="col">Sto.Location</td>
+            <td class="col">Ship-To</td>
+            <td class="col">Shipment No</td>
+            <td class="col">Shp Create Date Time</td>
+            <td class="col text-wrap" style="width: 50px;">Over All Picking Status</td>
+            <td class="col text-wrap" style="width: 50px;">Over All WM Status</td>
+            <td class="col text-wrap" style="width: 50px;">Over All GM Status</td>
+            <td class="col">KPI</td>
+            <td class="col" style="width: 30px;">B</td>
+            <td class="col" style="width: 30px;">NB</td>
+            <td class="col" style="width: 30px;">Total</td>
+            <td class="col">Forward</td>
+            <td class="col">HAWB</td>
+            <td class="col">HAWB_d</td>
+            <td class="col">Cut Time</td>
+            <td class="col">Pickup Time</td>
+            <td class="col">Remark</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i < data.length; i++) { %>
+            <tr>
+
+              <td>
+                <table>
+                  <th >
+                    <td>
+                      <%= data[i]['ImportDate'] %>
+                    </td>
+                  </th>
+                  <tbody>
+                    <tr>
+                      <% if ( data[i]['OvrPickingStus'] == null ) { %>
+                        <td><ion-icon style="color: #c0392b;" size="large" name="close-outline"></ion-icon></td>
+                      <% } else { %>
+                      <% if (data[i]['Print_Act_Flg']==0) { %>
+                        <td><ion-icon style="color: red; " name="flag"></ion-icon></td>
+                        <% } else { %>
+                          <td><ion-icon style="color: #2ecc71; " name="flag"></ion-icon></td>
+                          
+                          <% }%>
+                        <% } %>
+                          <td>
+                            <button type="button" class="btn btn-default"
+                            onclick="">
+                            <ion-icon name="print-outline"></ion-icon>
+                            
+                          </td>
+                    </tr>
+                  </tbody>
+                 
+                    
+                </table>
+                
+                  
+              </td>
+
+              <td>
+                <table>
+                  <th >
+                    <tr>
+                      <td style="font-weight: bold;"><%= data[i]['logNum'] %></td>
+                    </tr>
+                    
+                  </th>
+                  <tbody>
+                    <tr>
+                      <td>
+                    
+                        <% if (data[i]['CN_Ctrl_Parts']==1) { %>
+                          <td>
+                            <ion-icon style="width:25px; height:25px" src="/img/china_flag.svg"></ion-icon>
+                          </td>
+                         
+                          <% } %>
+                    </td>
+                    <td>
+                      
+                      <% if (data[i]['Service']===2 ) { %>
+                        <table>
+                          <td><ion-icon name="flame" style="color: #c0392b;"></ion-icon></td>
+                          <td><ion-icon name="flame" style="color: #c0392b;"></ion-icon></td>
+                          <td><ion-icon name="flame" style="color: #c0392b;"></ion-icon></td>
+                        </table>
+                        
+                        
+                        <% } %>
+                    </td>
+
+                    </tr>
+                  </tbody>
+                  
+                </table>
+
+
+              </td>
+              <td>
+                <%= data[i]['Shpt'] %>
+              </td>
+              <td>
+                <%= data[i]['DP'] %>
+              </td>
+              <td>
+                <%= data[i]['SHPCondition'] %>
+              </td>
+              <td>
+                <%= data[i]['Country'] %>
+              </td>
+              <td>
+                <%= data[i]['Ordes'] %>
+              </td>
+              <td>
+                <%= data[i]['StorageLocation'] %>
+              </td>
+              <td>
+                <%= data[i]['ShipTo'] %>
+              </td>
+              <td>
+                <table>
+
+                  <th>
+                  <td id="<%= data[i]['ShipmentNo'] %>" style="font-weight: bold ; " class="text-wrap">
+                    <%= data[i]['ShipmentNo'] %>
+                  </td>
+                  </th>
+
+
+                  <tbody>
+                    <tr>
+                      <td>
+                        <button type="button" class="btn btn-default"
+                          onclick="window.location.href=`/get/dashboard?function=getShipmentChild&shipmentNo=<%= data[i]['ShipmentNo'] %>`">
+                          <ion-icon name="list-outline"></ion-icon>
+                        </button>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-default"
+                          onclick="confirmation(`<%= data[i]['ShipmentNo']%>`)">
+                          <ion-icon style="color: #c0392b;" name="trash-bin"></ion-icon>
+                        </button>
+
+                      </td>
+                      
+
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!--<div class="col"><button class="btn btn-secondary btn-sm">Detail</button></div>-->
+              </td>
+              <td>
+                <%= data[i]['ShipmentCreateDateTime'] %>
+              </td>
+              <% if (data[i]['OvrPickingStus']==='C' ) { %>
+                <td style="background-color: #2ecc71;">
+                  <%= data[i]['OvrPickingStus'] %>
+                </td>
+                <% } else { %>
+                  <td style="background-color: #c0392b">
+                    <%= data[i]['OvrPickingStus'] %>
+                  </td>
+                  <% } %>
+                    <% if (data[i]['OvrWMStus']==='C' ) { %>
+                      <td style="background-color: #2ecc71;">
+                        <%= data[i]['OvrWMStus'] %>
+                      </td>
+                      <% } else { %>
+                        <td style="background-color: #c0392b">
+                          <%= data[i]['OvrWMStus'] %>
+                        </td>
+                        <% } %>
+                          <% if (data[i]['OvrGMStus']==='C' ) { %>
+                            <td style="background-color: #2ecc71;">
+                              <%= data[i]['OvrGMStus'] %>
+                            </td>
+                            <% } else { %>
+                              <td style="background-color: #c0392b">
+                                <%= data[i]['OvrGMStus'] %>
+                              </td>
+                              <% } %>
+                                <td>
+                                  <%= data[i]['Service'] %>
+                                </td>
+                                <td>
+                                  <%= data[i]['Bonded'] %>
+                                </td>
+                                <td>
+                                  <%= data[i]['NonBonded'] %>
+                                </td>
+                                <td>
+                                  <%= data[i]['TotalItem'] %>
+                                </td>
+                                <% if (data[i]['Vendor'] !==null ) { %>
+                                  <td>
+                                    <table>
+                                      <tr>
+                                        <td>
+                                          <%= data[i]['Vendor'] %>
+                                        </td>
+                                        <td>
+                                          <button type="button" class="btn btn-default"
+                                            onclick="window.location.href=`/get/hawbInformation?function=vendor&shipmentNo=<%= data[i]['ShipmentNo'] %>`">
+                                            <ion-icon size="large" name="airplane-outline"></ion-icon>
+                                          </button>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                  <% } else { %>
+                                    <td>
+                                      <%= data[i]['Vendor'] %>
+                                    </td>
+                                    <% } %>
+
+
+
+                                      <td>
+
+                                        <table>
+                                          <tr>
+                                            <td>
+                                              <%= data[i]['M_HAWB'] %>
+                                            </td>
+                                            <td>
+                                              <% if (data[i]['Vendor'] !==null ) { %>
+                                                <button type="button" class="btn btn-default"
+                                                  onclick="window.location.href=`/get/hawbInformation?function=<%= data[i]['Vendor'] %>&shipmentNo=<%= data[i]['ShipmentNo']%>`">
+                                                  <ion-icon size="large" name="receipt-outline"></ion-icon>
+                                                </button>
+                                                <% } %>
+
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                      <td>
+                                        <%= data[i]['D_HAWB'] %>
+                                      </td>
+                                      <td>
+                                        <%= data[i]['R_CutTime'] %>
+                                      </td>
+                                      <td>
+                                        <%= data[i]['R_PickupTime'] %>
+                                      </td>
+                                      <td style="font-weight: bold;">
+                                        <%= data[i]['pkg_description'] %>
+                                      </td>
+
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+          <% if (Number(paggingData['currentPage']) == 1) { %> 
+            <li class="page-item disabled"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a></li>
+          <% } else { %>
+          <li class="page-item"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a></li>
+          <% } %>
+          <% for(var i=1; i <=paggingData['pagePadding']; i++) { %>
+            <% if (i==paggingData['currentPage'] ) { %>
+              <li class="page-item disabled"><a class="page-link"
+                  href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
+                  <%= i %>
+                </a></li>
+              <% } else { %>
+                <li class="page-item"><a class="page-link"
+                    href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
+                    <%= i %>
+                  </a></li>
+                <% } %>
+                  <% } %>
+          <% if ( Number(paggingData['pagePadding']) == Number(paggingData['currentPage']) ) { %>
+          <li class="page-item disabled"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a></li>
+            <% } else { %>
+              <li class="page-item "><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a></li>
+          <% } %>
+        </ul>
+      </nav>
+
+
+      <script>
+
+        window.addEventListener("pageshow", function (event) {
+          var historyTraversal = event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2);
+          if (historyTraversal) {
+            // Handle page restore.
+            //alert('refresh');
+            window.location.reload();
+          }
+        });
+
+
+
+
+
+        var confirmation = function (shipment) {
+
+          
+
+          var answer = confirm('Delete Shipment: ' + shipment + " ??")
+          
+          if (answer) {
+            var promption = prompt('Please enter you description')
+            if (promption.length > 0 ) {
+              alert("Start Delete shipment: " + shipment + ". from Control log")
+              $.ajax({
+                url: `/post/InformationSet?function=deletShipment&shipmentNo=${shipment}&pkgDescription=${promption}`,
+                type: 'POST',
+                success: function (response) {
+                  alert(response);
+                  window.location.reload();
+                },
+                error: function (e) {
+                  alert('Error: ' + e);
+                }
+              });
+            } else {
+              alert('you have not entry description')
+            }
+            
+          }
+          else {
+            alert("if you want delete, please re-click")
+          }
+        };
+
+        
+
+
+
+      </script>
+      </body>
+
+      </html>
