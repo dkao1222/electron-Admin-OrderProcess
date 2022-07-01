@@ -467,7 +467,7 @@ function main(workbook: ExcelScript.Workbook) {
 
   for (let i = 0; i < sourceValue.length; i++) {
     for (let j = 0; j < targetValues.length; j++) {
-      if (sourceValue[i][2] == targetValues[j][1]  ) {
+      if (sourceValue[i][2] == targetValues[j][1]) {
         sourceValue[i][0] = targetValues[j][33] // create date
         sourceValue[i][1] = targetValues[j][34] // create time
         sourceValue[i][3] = targetValues[j][2] // document
@@ -639,17 +639,17 @@ function main(workbook: ExcelScript.Workbook) {
 
   for (let i = 2; i < 16; i++) {
     let j = i + 1
-    calculation.getCell(3, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$e:$e)`)
-    calculation.getCell(4, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$M:$M)`)
-    calculation.getCell(5, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$N:$N)`)
-    calculation.getCell(6, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$O:$O)`)
-    calculation.getCell(7, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$P:$P)`)
+    calculation.getCell(3, i).setFormula(`=SUMIF(${sheetName}!$Q:$Q,${calculation.getCell(2, i).getAddress()},${sheetName}!$e:$e)`)
+    calculation.getCell(4, i).setFormula(`=SUMIF(${sheetName}!$Q:$Q,${calculation.getCell(2, i).getAddress()},${sheetName}!$M:$M)`)
+    calculation.getCell(5, i).setFormula(`=SUMIF(${sheetName}!$Q:$Q,${calculation.getCell(2, i).getAddress()},${sheetName}!$N:$N)`)
+    calculation.getCell(6, i).setFormula(`=SUMIF(${sheetName}!$Q:$Q,${calculation.getCell(2, i).getAddress()},${sheetName}!$O:$O)`)
+    calculation.getCell(7, i).setFormula(`=SUMIF(${sheetName}!$Q:$Q,${calculation.getCell(2, i).getAddress()},${sheetName}!$P:$P)`)
   }
 
   for (let i = 2; i < 16; i++) {
     let j = i + 1
     // number of item
-    calculation.getCell(12, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$e:$e)`)
+    calculation.getCell(12, i).setFormula(`=SUMIF(${sheetName}!$Q:$Q,${calculation.getCell(2, i).getAddress()},${sheetName}!$e:$e)`)
 
     // pick not completed
     calculation.getCell(13, i).setFormula(`=${calculation.getCell(12, i).getAddress()}-${calculation.getCell(4, i).getAddress()}`)
@@ -668,19 +668,19 @@ function main(workbook: ExcelScript.Workbook) {
   for (let i = 3; i < 17; i++) {
     let j = i + 1
 
-    calculation.getCell(20, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"FTZ",Outbound_2022_6_28!$R:$R,"T1PR",Outbound_2022_6_28!$J:$J,"<>T1EPGINS")`)
-    calculation.getCell(21, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"FTZ",Outbound_2022_6_28!$R:$R,"T1ER",Outbound_2022_6_28!$J:$J,"<>T1EPGINS")`)
-    calculation.getCell(22, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"FTZ",Outbound_2022_6_28!$J:$J,"T1EPGINS")`)
+    calculation.getCell(20, i).setFormula(`=SUMIFS(${sheetName}!$E:$E,${sheetName}!$Q:$Q,${calculation.getCell(19, i).getAddress()},${sheetName}!$S:$S,"FTZ",${sheetName}!$R:$R,"T1PR",${sheetName}!$J:$J,"<>T1EPGINS")`)
+    calculation.getCell(21, i).setFormula(`=SUMIFS(${sheetName}!$E:$E,${sheetName}!$Q:$Q,${calculation.getCell(19, i).getAddress()},${sheetName}!$S:$S,"FTZ",${sheetName}!$R:$R,"T1ER",${sheetName}!$J:$J,"<>T1EPGINS")`)
+    calculation.getCell(22, i).setFormula(`=SUMIFS(${sheetName}!$E:$E,${sheetName}!$Q:$Q,${calculation.getCell(19, i).getAddress()},${sheetName}!$S:$S,"FTZ",${sheetName}!$J:$J,"T1EPGINS")`)
     calculation.getCell(23, i).setFormula(`=sum(${calculation.getCell(20, i).getAddress()}:${calculation.getCell(22, i).getAddress()})`)
 
-    calculation.getCell(24, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"TMC",Outbound_2022_6_28!$R:$R,"T1PR",Outbound_2022_6_28!$J:$J,"<>T1EPGINS")`)
-    calculation.getCell(25, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"TMC",Outbound_2022_6_28!$R:$R,"T1ER",Outbound_2022_6_28!$J:$J,"<>T1EPGINS")`)
-    calculation.getCell(26, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"TMC",Outbound_2022_6_28!$J:$J,"T1EPGINS")`)
+    calculation.getCell(24, i).setFormula(`=SUMIFS(${sheetName}!$E:$E,${sheetName}!$Q:$Q,${calculation.getCell(19, i).getAddress()},${sheetName}!$S:$S,"TMC",${sheetName}!$R:$R,"T1PR",${sheetName}!$J:$J,"<>T1EPGINS")`)
+    calculation.getCell(25, i).setFormula(`=SUMIFS(${sheetName}!$E:$E,${sheetName}!$Q:$Q,${calculation.getCell(19, i).getAddress()},${sheetName}!$S:$S,"TMC",${sheetName}!$R:$R,"T1ER",${sheetName}!$J:$J,"<>T1EPGINS")`)
+    calculation.getCell(26, i).setFormula(`=SUMIFS(${sheetName}!$E:$E,${sheetName}!$Q:$Q,${calculation.getCell(19, i).getAddress()},${sheetName}!$S:$S,"TMC",${sheetName}!$J:$J,"T1EPGINS")`)
     calculation.getCell(27, i).setFormula(`=sum(${calculation.getCell(24, i).getAddress()}:${calculation.getCell(26, i).getAddress()})`)
 
   }
 
-  
+
 
   console.log('finsish report calculation')
 }
