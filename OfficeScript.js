@@ -154,117 +154,257 @@ function main(workbook: ExcelScript.Workbook) {
   templateSheet.getUsedRange().setValues(checkHandlingUnidData)
 
   console.log('check Order start time')
-  //checkHandlingUnidData = templateSheet.getUsedRange().getValues()
-  let pickorderStart = handlingReOrder.getRange(`${handlingReOrder.getCell(0, 3).getAddress()}:${handlingReOrder.getCell(findLastRow, 7).getAddress()}`).getValues();
-  for (let i = 0; i < checkHandlingUnidData.length; i++) {
-    for (let j = 0; j < pickorderStart.length; j++) {
-      if (checkHandlingUnidData[i][1] == pickorderStart[j][0]) {
-        let checkString = pickorderStart[j][1] as string;
-        let checkDpcument = checkHandlingUnidData[i][0] as string;
-        let checkDpcumentRv = checkHandlingUnidData[i][7] as string;
-        if (checkDpcument.toString().indexOf('100') >= 0) {
-          if (checkString.indexOf('-STAG') > 0) {
-            checkHandlingUnidData[i][2] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
+  if (findLastRow > 10000) {
+    console.log(Math.ceil(Number(findLastRow) / 10000))
+    for (let i = 0; i < Math.ceil(Number(findLastRow) / 10000); i++) {
+      let checkHandlingUnidData = templateSheet.getUsedRange().getValues();
+      let start = i * 10000
+      let end = (i + 1) * 10000
+      console.log('check Order start time Start:' + start + ', End:' + end)
+      let pickorderStart = handlingReOrder.getRange(`${handlingReOrder.getCell(start, 3).getAddress()}:${handlingReOrder.getCell(end, 7).getAddress()}`).getValues()
+
+      for (let i = 0; i < checkHandlingUnidData.length; i++) {
+        for (let j = 0; j < pickorderStart.length; j++) {
+          if (checkHandlingUnidData[i][1] == pickorderStart[j][0]) {
+            let checkString = pickorderStart[j][1] as string;
+            let checkDpcument = checkHandlingUnidData[i][0] as string;
+            let checkDpcumentRv = checkHandlingUnidData[i][7] as string;
+            if (checkDpcument.toString().indexOf('100') >= 0) {
+              if (checkString.indexOf('-STAG') > 0) {
+                checkHandlingUnidData[i][2] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
+              }
+
+              if (checkString.indexOf('F1') >= 0) {
+                checkHandlingUnidData[i][13] = 'FTZ'
+              }
+
+              if (checkString.indexOf('T1') >= 0) {
+                checkHandlingUnidData[i][13] = 'TMC'
+              }
+
+
+
+
+            }
+            if (checkDpcument.toString().indexOf('800') >= 0) {
+              if (checkString == '') {
+                checkHandlingUnidData[i][2] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
+              }
+
+              if (checkString.indexOf('F1') >= 0) {
+                checkHandlingUnidData[i][13] = 'FTZ'
+              }
+
+              if (checkString.indexOf('T1') >= 0) {
+                checkHandlingUnidData[i][13] = 'TMC'
+              }
+
+            }
+
+            if (checkDpcumentRv.toString().indexOf('200') >= 0) {
+              if (checkString == '') {
+                checkHandlingUnidData[i][8] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
+              }
+
+            }
+
+
+          }
+        }
+        //templateSheet.getUsedRange().setValues(checkHandlingUnidData)
+      }
+
+      templateSheet.getUsedRange().setValues(checkHandlingUnidData)
+
+    }
+  } else {
+    //checkHandlingUnidData = templateSheet.getUsedRange().getValues()
+    let pickorderStart = handlingReOrder.getRange(`${handlingReOrder.getCell(0, 3).getAddress()}:${handlingReOrder.getCell(findLastRow, 7).getAddress()}`).getValues();
+    for (let i = 0; i < checkHandlingUnidData.length; i++) {
+      for (let j = 0; j < pickorderStart.length; j++) {
+        if (checkHandlingUnidData[i][1] == pickorderStart[j][0]) {
+          let checkString = pickorderStart[j][1] as string;
+          let checkDpcument = checkHandlingUnidData[i][0] as string;
+          let checkDpcumentRv = checkHandlingUnidData[i][7] as string;
+          if (checkDpcument.toString().indexOf('100') >= 0) {
+            if (checkString.indexOf('-STAG') > 0) {
+              checkHandlingUnidData[i][2] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
+            }
+
+            if (checkString.indexOf('F1') >= 0) {
+              checkHandlingUnidData[i][13] = 'FTZ'
+            }
+
+            if (checkString.indexOf('T1') >= 0) {
+              checkHandlingUnidData[i][13] = 'TMC'
+            }
+
+
+
+
+          }
+          if (checkDpcument.toString().indexOf('800') >= 0) {
+            if (checkString == '') {
+              checkHandlingUnidData[i][2] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
+            }
+
+            if (checkString.indexOf('F1') >= 0) {
+              checkHandlingUnidData[i][13] = 'FTZ'
+            }
+
+            if (checkString.indexOf('T1') >= 0) {
+              checkHandlingUnidData[i][13] = 'TMC'
+            }
+
           }
 
-          if (checkString.indexOf('F1') >= 0) {
-            checkHandlingUnidData[i][13] = 'FTZ'
+          if (checkDpcumentRv.toString().indexOf('200') >= 0) {
+            if (checkString == '') {
+              checkHandlingUnidData[i][8] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
+            }
+
           }
-
-          if (checkString.indexOf('T1') >= 0) {
-            checkHandlingUnidData[i][13] = 'TMC'
-          }
-
-
 
 
         }
-        if (checkDpcument.toString().indexOf('800') >= 0) {
-          if (checkString == '') {
-            checkHandlingUnidData[i][2] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
-          }
-
-          if (checkString.indexOf('F1') >= 0) {
-            checkHandlingUnidData[i][13] = 'FTZ'
-          }
-
-          if (checkString.indexOf('T1') >= 0) {
-            checkHandlingUnidData[i][13] = 'TMC'
-          }
-
-        }
-
-        if (checkDpcumentRv.toString().indexOf('200') >= 0) {
-          if (checkString == '') {
-            checkHandlingUnidData[i][8] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
-          }
-
-        }
-
-
       }
     }
+    templateSheet.getUsedRange().setValues(checkHandlingUnidData)
   }
+
+
+
 
   //templateSheet.getUsedRange().setValues(checkHandlingUnidData)
 
   console.log('check Order confirm time')
-  //checkHandlingUnidData = templateSheet.getUsedRange().getValues()
-  let confirmorderStart = handlingReOrder.getRange(`${handlingReOrder.getCell(0, 8).getAddress()}:${handlingReOrder.getCell(findLastRow, 12).getAddress()}`).getValues();
-  for (let i = 0; i < checkHandlingUnidData.length; i++) {
-    for (let j = 0; j < confirmorderStart.length; j++) {
-      if (checkHandlingUnidData[i][1] == pickorderStart[j][0]) {
-        let checkString = confirmorderStart[j][2] as string;
-        let checkDpcument = checkHandlingUnidData[i][0] as string;
-        let checkDpcumentRv = checkHandlingUnidData[i][7] as string;
-        if (checkDpcument.toString().indexOf('100') >= 0) {
-          if (checkString.indexOf('PICKSTAG') > 0) {
-            checkHandlingUnidData[i][3] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
-          }
+  if (findLastRow > 10000) {
+    console.log(Math.ceil(Number(findLastRow) / 10000))
+    for (let i = 0; i < Math.ceil(Number(findLastRow) / 10000); i++) {
+      let checkHandlingUnidData = templateSheet.getUsedRange().getValues();
+      let start = i * 10000
+      let end = (i + 1) * 10000
+      console.log('check Order confirm time Start:' + start + ', End:' + end)
+      let confirmorderStart = handlingReOrder.getRange(`${handlingReOrder.getCell(start, 8).getAddress()}:${handlingReOrder.getCell(end, 12).getAddress()}`).getValues();
 
-          if (checkString.indexOf('TRUCK') > 0) {
-            checkHandlingUnidData[i][4] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
-          }
+      for (let i = 0; i < checkHandlingUnidData.length; i++) {
+        for (let j = 0; j < confirmorderStart.length; j++) {
+          if (checkHandlingUnidData[i][1] == confirmorderStart[j][0]) {
+            let checkString = confirmorderStart[j][2] as string;
+            let checkDpcument = checkHandlingUnidData[i][0] as string;
+            let checkDpcumentRv = checkHandlingUnidData[i][7] as string;
+            if (checkDpcument.toString().indexOf('100') >= 0) {
+              if (checkString.indexOf('PICKSTAG') > 0) {
+                checkHandlingUnidData[i][3] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+              }
 
-          if (checkString.indexOf('INTERIM') > 0) {
-            checkHandlingUnidData[i][5] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
-          }
+              if (checkString.indexOf('TRUCK') > 0) {
+                checkHandlingUnidData[i][4] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+              }
 
-          if (checkString.indexOf('TRANSIT') > 0) {
-            checkHandlingUnidData[i][5] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
-          }
+              if (checkString.indexOf('INTERIM') > 0) {
+                //checkHandlingUnidData[i][5] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+                checkHandlingUnidData[i][4] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+              }
 
-          if (checkString.indexOf('PGI') >= 0) {
-            checkHandlingUnidData[i][6] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
-          }
+              if (checkString.indexOf('TRANSIT') > 0) {
+                checkHandlingUnidData[i][5] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+              }
 
+              if (checkString.indexOf('PGI') >= 0) {
+                checkHandlingUnidData[i][6] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+              }
+
+            }
+            if (checkDpcument.toString().indexOf('800') >= 0) {
+              if (checkString.indexOf('CONS') > 0) {
+                checkHandlingUnidData[i][3] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+              }
+
+              if (checkString.indexOf('PACK') > 0) {
+                checkHandlingUnidData[i][4] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+              }
+
+              if (checkString.indexOf('SHIP') > 0) {
+                checkHandlingUnidData[i][5] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+              }
+
+            }
+
+            if (checkDpcumentRv.toString().indexOf('200') >= 0) {
+              if (checkString.indexOf('-STAG') > 0) {
+                checkHandlingUnidData[i][9] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+              }
+              //checkHandlingUnidData[i][9] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+          }
         }
-        if (checkDpcument.toString().indexOf('800') >= 0) {
-          if (checkString.indexOf('CONS') > 0) {
-            checkHandlingUnidData[i][3] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+
+      }
+      templateSheet.getUsedRange().setValues(checkHandlingUnidData)
+    }
+
+  } else {
+    //checkHandlingUnidData = templateSheet.getUsedRange().getValues()
+    let confirmorderStart = handlingReOrder.getRange(`${handlingReOrder.getCell(0, 8).getAddress()}:${handlingReOrder.getCell(findLastRow, 12).getAddress()}`).getValues();
+    for (let i = 0; i < checkHandlingUnidData.length; i++) {
+      for (let j = 0; j < confirmorderStart.length; j++) {
+        if (checkHandlingUnidData[i][1] == pickorderStart[j][0]) {
+          let checkString = confirmorderStart[j][2] as string;
+          let checkDpcument = checkHandlingUnidData[i][0] as string;
+          let checkDpcumentRv = checkHandlingUnidData[i][7] as string;
+          if (checkDpcument.toString().indexOf('100') >= 0) {
+            if (checkString.indexOf('PICKSTAG') > 0) {
+              checkHandlingUnidData[i][3] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+
+            if (checkString.indexOf('TRUCK') > 0) {
+              checkHandlingUnidData[i][4] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+
+            if (checkString.indexOf('INTERIM') > 0) {
+              checkHandlingUnidData[i][5] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+
+            if (checkString.indexOf('TRANSIT') > 0) {
+              checkHandlingUnidData[i][5] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+
+            if (checkString.indexOf('PGI') >= 0) {
+              checkHandlingUnidData[i][6] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+
+          }
+          if (checkDpcument.toString().indexOf('800') >= 0) {
+            if (checkString.indexOf('CONS') > 0) {
+              checkHandlingUnidData[i][3] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+
+            if (checkString.indexOf('PACK') > 0) {
+              checkHandlingUnidData[i][4] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+
+            if (checkString.indexOf('SHIP') > 0) {
+              checkHandlingUnidData[i][5] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+
           }
 
-          if (checkString.indexOf('PACK') > 0) {
-            checkHandlingUnidData[i][4] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+          if (checkDpcumentRv.toString().indexOf('200') >= 0) {
+            if (checkString.indexOf('-STAG') > 0) {
+              checkHandlingUnidData[i][9] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
+            }
+            //checkHandlingUnidData[i][9] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
           }
-
-          if (checkString.indexOf('SHIP') > 0) {
-            checkHandlingUnidData[i][5] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
-          }
-
-        }
-
-        if (checkDpcumentRv.toString().indexOf('200') >= 0) {
-          if (checkString.indexOf('-STAG') > 0) {
-            checkHandlingUnidData[i][9] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
-          }
-          //checkHandlingUnidData[i][9] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
         }
       }
     }
+
+    templateSheet.getUsedRange().setValues(checkHandlingUnidData)
+
   }
 
-  templateSheet.getUsedRange().setValues(checkHandlingUnidData)
+
 
 
 
@@ -327,7 +467,7 @@ function main(workbook: ExcelScript.Workbook) {
 
   for (let i = 0; i < sourceValue.length; i++) {
     for (let j = 0; j < targetValues.length; j++) {
-      if (sourceValue[i][2] == targetValues[j][1]) {
+      if (sourceValue[i][2] == targetValues[j][1]  ) {
         sourceValue[i][0] = targetValues[j][33] // create date
         sourceValue[i][1] = targetValues[j][34] // create time
         sourceValue[i][3] = targetValues[j][2] // document
@@ -422,437 +562,125 @@ function main(workbook: ExcelScript.Workbook) {
   for (let i = 0; i < 7; i++) {
     //let chcekDates = calculationDate.getDate()
     let calculationDate = new Date()
+    calculationDate.setDate(calculationDate.getDate() + i - 7)
+    let year = calculationDate.getFullYear();
+    let month = calculationDate.getMonth() + 1;
+    let dates = calculationDate.getDate();
+
+    let changeDate = year + '/' + month + '/' + dates
+    calculation.getCell(2, i + 2).setValue(changeDate)
+    calculation.getCell(2, i + 2).setNumberFormat("yyyy/MM/dd")
+
+
+    calculation.getCell(11, i + 2).setValue(changeDate)
+    calculation.getCell(11, i + 2).setNumberFormat("yyyy/MM/dd")
+
+    calculation.getCell(19, i + 3).setValue(changeDate)
+    calculation.getCell(19, i + 3).setNumberFormat("yyyy/MM/dd")
+
+    //calculation.getCell(31, i + 3).setValue(changeDate)
+    //calculation.getCell(31, i + 3).setNumberFormat("yyyy/MM/dd")
+
+  }
+
+  for (let i = 0; i < 7; i++) {
+    //let chcekDates = calculationDate.getDate()
+    let calculationDate = new Date()
     calculationDate.setDate(calculationDate.getDate() + i)
     let year = calculationDate.getFullYear();
     let month = calculationDate.getMonth() + 1;
     let dates = calculationDate.getDate();
 
     let changeDate = year + '/' + month + '/' + dates
-    calculation.getCell(2, 2 + i).setValue(changeDate)
-    calculation.getCell(2, 2 + i).setNumberFormat("yyyy/MM/dd")
+    calculation.getCell(2, i + 9).setValue(changeDate)
+    calculation.getCell(2, i + 9).setNumberFormat("yyyy/MM/dd")
 
-    calculation.getCell(17, 2 + i).setValue(changeDate)
-    calculation.getCell(17, 2 + i).setNumberFormat("yyyy/MM/dd")
 
-    calculation.getCell(35, 3 + i).setValue(changeDate)
-    calculation.getCell(35, 3 + i).setNumberFormat("yyyy/MM/dd")
+    calculation.getCell(11, i + 9).setValue(changeDate)
+    calculation.getCell(11, i + 9).setNumberFormat("yyyy/MM/dd")
 
-    // for GR value
-    /*
-    calculation.getCell(35, 2 + i).setValue(changeDate)
-    calculation.getCell(35, 2 + i).setNumberFormat("yyyy/MM/dd")
-    */
+    calculation.getCell(19, i + 10).setValue(changeDate)
+    calculation.getCell(19, i + 10).setNumberFormat("yyyy/MM/dd")
+
+    //calculation.getCell(31, i + 10).setValue(changeDate)
+    //calculation.getCell(31, i + 10).setNumberFormat("yyyy/MM/dd")
+
+
   }
 
-  // set last 7 days
-  for (let i = 7; i > 0; i--) {
-    let calculationDate = new Date()
-    calculationDate.setDate(calculationDate.getDate() - i)
-    let year = calculationDate.getFullYear();
-    let month = calculationDate.getMonth() + 1;
-    let dates = calculationDate.getDate();
-
-
-    let changeDate = year + '/' + month + '/' + dates
-    calculation.getCell(9, 1 + i).setValue(changeDate)
-    calculation.getCell(9, 1 + i).setNumberFormat("yyyy/MM/dd")
-
-    calculation.getCell(26, 1 + i).setValue(changeDate)
-    calculation.getCell(26, 1 + i).setNumberFormat("yyyy/MM/dd")
-
-    calculation.getCell(45, 2 + i).setValue(changeDate)
-    calculation.getCell(45, 2 + i).setNumberFormat("yyyy/MM/dd")
-
-    // for GR value
-    /* 
-    calculation.getCell(39, 1 + i).setValue(changeDate)
-    calculation.getCell(39, 1 + i).setNumberFormat("yyyy/MM/dd")
-    */
-  }
-
-  let rowHeader = ['Number of Items', 'Pick completed', 'On Truck', 'On the Way', 'On TMC']
-  for (let i = 0; i < 7; i++) {
-    let p = i + 3
+  calculation.getCell(1, 1).setValue('Completed Volumn')
+  calculation.getCell(10, 1).setValue('Inmpleted Volumn')
+  let rowHeader = ['Plan Date', 'Number of Items', 'Pick completed', 'In EPG Staging', 'EPG -> TMC', 'In TMC']
+  for (let i = 0; i < 6; i++) {
+    let p = i + 2
     calculation.getCell(p, 1).setValue(rowHeader[i])
   }
 
-  for (let i = 0; i < 7; i++) {
-    let p = i + 10
+  for (let i = 0; i < 6; i++) {
+    let p = i + 11
     calculation.getCell(p, 1).setValue(rowHeader[i])
-  }
-
-  let dailyHeader = ['FTZ-T1PR', 'FTZ-T1ER', 'FTZ-EMER', 'TMC-T1PR', 'TMC-T1ER', 'TMC-EMER', 'Total']
-  for (let i = 0; i < 7; i++) {
-    let p = i + 18
-    calculation.getCell(p, 1).setValue(dailyHeader[i])
-  }
-
-  for (let i = 0; i < 7; i++) {
-    let p = i + 27
-    calculation.getCell(p, 1).setValue(dailyHeader[i])
   }
 
   let reportHeader = ['FTZ-Regular', 'FTZ-Down', 'FTZ-NSSC', 'FTZ-Totals', 'TMC-Regular', 'TMC-Down', 'TMC-NSSC', 'TMC-Totals']
   let reportKPI = ['36', '4', '36', '-', '36', '4', '36', '-']
+  calculation.getCell(19, 2).setValue('KPI')
+  /*calculation.getCell(31, 2).setValue('KPI')
   for (let i = 0; i < 8; i++) {
-    let p = i + 36
+    let p = i + 32
     calculation.getCell(p, 1).setValue(reportHeader[i])
     calculation.getCell(p, 2).setValue(reportKPI[i])
-  }
-
-  for (let i = 0; i < 8; i++) {
-    let p = i + 46
-    calculation.getCell(p, 1).setValue(reportHeader[i])
-    calculation.getCell(p, 2).setValue(reportKPI[i])
-  }
-
-  
-
-  /* let rcvHeader = ['GR', 'putaway']
-  for (let i = 0; i < 2; i++) {
-    let p = i + 36
-    calculation.getCell(p, 1).setValue(rcvHeader[i])
-  }
-
-  
-  for (let i = 0; i < 2; i++) {
-    let p = i + 40
-    calculation.getCell(p, 1).setValue(rcvHeader[i])
-  } */
-
-
-  let calculationData = workbook.getWorksheet(sheetName).getUsedRange().getValues();
-  let calculationSource = workbook.getWorksheet("calculation").getUsedRange().getValues();
-
-  for (let i = 0; i < calculationSource.length; i++) {
-
-    for (let j = 0; j < calculationSource[i].length; j++) {
-      if (calculationSource[i][j] == "Number of Items") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 1
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][4])
-            }
-          }
-        }
-      } else if (calculationSource[i][j] == "Pick completed") {
-
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 2
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][12])
-            }
-          }
-        }
-
-      } else if (calculationSource[i][j] == "On Truck") {
-
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 3
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][13])
-            }
-          }
-        }
-
-      } else if (calculationSource[i][j] == "On the Way") {
-
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 4
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][14])
-            }
-          }
-        }
-
-      } else if (calculationSource[i][j] == "On TMC") {
-
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 5
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][15])
-            }
-          }
-        }
-
-      }
-    }
-  }
-
-  for (let i = 0; i < calculationSource.length; i++) {
-
-    for (let j = 0; j < calculationSource[i].length; j++) {
-      if (calculationSource[i][j] == "FTZ-T1PR") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 1
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              if (calculationData[k][17] == 'T1PR') {
-                calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][13])
-              }
-              //calculationSource[i][m] = Number(calculationSource[i][m]) + Number(calculationData[k][13])
-            }
-          }
-        }
-      } else if (calculationSource[i][j] == "FTZ-T1ER") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 2
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              if (calculationData[k][17] == 'T1ER') {
-                calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][13])
-              }
-
-            }
-          }
-        }
-      } else if (calculationSource[i][j] == "FTZ-EMER") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 3
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              if (calculationData[k][17] == 'EMER') {
-                calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][13])
-              }
-              //calculationSource[i][m] = Number(calculationSource[i][m]) + Number(calculationData[k][13])
-            }
-          }
-        }
-
-      } else if (calculationSource[i][j] == "TMC-T1PR") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 4
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              if (calculationData[k][17] == 'T1PR') {
-                calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][15])
-              }
-              //calculationSource[i][m] = Number(calculationSource[i][m]) + Number(calculationData[k][13])
-            }
-          }
-        }
-      } else if (calculationSource[i][j] == "TMC-T1ER") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 5
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              if (calculationData[k][17] == 'T1ER') {
-                calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][15])
-              }
-
-            }
-          }
-        }
-      } else if (calculationSource[i][j] == "TMC-EMER") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 6
-            let q = m + 1
-
-            if (calculationSource[p][m] == calculationData[k][16]) {
-              if (calculationData[k][17] == 'EMER') {
-                calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][15])
-              }
-              //calculationSource[i][m] = Number(calculationSource[i][m]) + Number(calculationData[k][13])
-            }
-          }
-        }
-
-      } else if (calculationSource[i][j] == "Total") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 7
-            let q = m + 1
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              /*if (calculationData[k][17] == 'EMER') {
-                calculationSource[i][m] = Number(calculationSource[i][m]) + Number(calculationData[k][13])
-              }*/
-              calculationSource[i][q] = Number(calculationSource[i][q]) + Number(calculationData[k][4])
-            }
-          }
-        }
-
-      }
-    }
-  }
-
-  /*for (let i = 0; i < calculationSource.length; i++) {
-
-    for (let j = 0; j < calculationSource[i].length; j++) {
-
-      if (calculationSource[i][j] == "GR") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < checkHandlingUnidData.length; k++) {
-            let p = i - 1
-            let q = m + 1
-
-            let checDates = new Date(calculationSource[p][m] as string)
-            let checkYear = checDates.getFullYear()
-            let checkMonth = checDates.getMonth() + 1
-            let checkDay = checDates.getDate()
-
-            let defineDates = new Date(checkHandlingUnidData[k][8] as string)
-            let defineYear = defineDates.getFullYear()
-            let defineMonth = defineDates.getMonth() + 1
-            let defineDay = defineDates.getDate()
-
-            let mapCheckDate = checkYear + checkMonth + checkDay
-            let mapDefineDate = defineYear + defineMonth + defineDay
-
-            if (mapCheckDate == mapDefineDate) {
-              if (checkHandlingUnidData[k][0] == '') {
-                calculationSource[i][m] = Number(calculationSource[i][m]) + 1
-              }
-              //calculationSource[i][m] = Number(calculationSource[i][m]) + Number(calculationData[k][13])
-            }
-          }
-        }
-      } else if (calculationSource[i][j] == "putaway") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < checkHandlingUnidData.length; k++) {
-            let p = i - 2
-            let q = m + 1
-            
-            let checDates = new Date(calculationSource[p][m] as string)
-            let checkYear = checDates.getFullYear()
-            let checkMonth = checDates.getMonth() + 1
-            let checkDay = checDates.getDate()
-
-            let defineDates = new Date(checkHandlingUnidData[k][8] as string)
-            let defineYear = defineDates.getFullYear()
-            let defineMonth = defineDates.getMonth() + 1
-            let defineDay = defineDates.getDate()
-
-            let mapCheckDate = checkYear + checkMonth + checkDay
-            let mapDefineDate = defineYear + defineMonth + defineDay
-
-            if (mapCheckDate == mapDefineDate) {
-              if (checkHandlingUnidData[k][0] == '') {
-                calculationSource[i][m] = Number(calculationSource[i][m]) + 1
-              }
-              //calculationSource[i][m] = Number(calculationSource[i][m]) + Number(calculationData[k][13])
-            }
-          }
-        }
-      }
-    }
   }*/
 
-  for (let i = 0; i < calculationSource.length; i++) {
-    for (let j = 0; j < calculationSource[i].length; j++) {
+  for (let i = 0; i < 8; i++) {
+    let p = i + 20
+    calculation.getCell(p, 1).setValue(reportHeader[i])
+    calculation.getCell(p, 2).setValue(reportKPI[i])
+  }
 
+  for (let i = 2; i < 16; i++) {
+    let j = i + 1
+    calculation.getCell(3, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$e:$e)`)
+    calculation.getCell(4, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$M:$M)`)
+    calculation.getCell(5, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$N:$N)`)
+    calculation.getCell(6, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$O:$O)`)
+    calculation.getCell(7, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$P:$P)`)
+  }
 
-      //let p = i - 1
-      //let q = i - 4
-      // calculationData[k][18] // Site
-      // calculationData[k][17] // Activate
-      // calculationData[k][16] // System plan date
-      if (calculationSource[i][j] == "FTZ-Regular") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 1
-            let q = m + 3
+  for (let i = 2; i < 16; i++) {
+    let j = i + 1
+    // number of item
+    calculation.getCell(12, i).setFormula(`=SUMIF(Outbound_2022_6_28!$Q:$Q,${calculation.getCell(2, i).getAddress()},Outbound_2022_6_28!$e:$e)`)
 
+    // pick not completed
+    calculation.getCell(13, i).setFormula(`=${calculation.getCell(12, i).getAddress()}-${calculation.getCell(4, i).getAddress()}`)
 
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              if (calculationData[k][18] == 'FTZ') {
-                if (calculationData[k][17] == 'T1PR') {
-                  calculationSource[i][q] = Number(calculationSource[i][q]) + 1
-                }
-              }
-            }
+    // Still in EPG Staging
+    calculation.getCell(14, i).setFormula(`=${calculation.getCell(4, i).getAddress()}-${calculation.getCell(5, i).getAddress()}`)
 
+    // Still on the way
+    calculation.getCell(15, i).setFormula(`=${calculation.getCell(5, i).getAddress()}-${calculation.getCell(6, i).getAddress()}`)
 
-
-          }
-        }
-      }
-      if (calculationSource[i][j] == "FTZ-Down") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 2
-            let q = m + 3
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              if (calculationData[k][18] == 'FTZ') {
-                if (calculationData[k][17] == 'T1ER') {
-                  calculationSource[i][q] = Number(calculationSource[i][q]) + 1
-                }
-              }
-            }
-
-          }
-        }
-      }
-      if (calculationSource[i][j] == "TMC-Regular") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 5
-            let q = m + 3
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              if (calculationData[k][18] == 'TMC') {
-                if (calculationData[k][17] == 'T1PR') {
-                  calculationSource[i][q] = Number(calculationSource[i][q]) + 1
-                }
-              }
-            }
-
-          }
-        }
-      }
-      if (calculationSource[i][j] == "TMC-Down") {
-        for (let m = 0; m < 7; m++) {
-          for (let k = 0; k < calculationData.length; k++) {
-            let p = i - 6
-            let q = m + 3
-
-            if (calculationSource[p][q] == calculationData[k][16]) {
-              if (calculationData[k][18] == 'TMC') {
-                if (calculationData[k][17] == 'T1ER') {
-                  calculationSource[i][q] = Number(calculationSource[i][q]) + 1
-                }
-              }
-            }
-
-          }
-        }
-      }
-    }
-
-
+    // in the TMC
+    calculation.getCell(16, i).setFormula(`=${calculation.getCell(6, i).getAddress()}-${calculation.getCell(7, i).getAddress()}`)
 
   }
 
+  for (let i = 3; i < 17; i++) {
+    let j = i + 1
 
+    calculation.getCell(20, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"FTZ",Outbound_2022_6_28!$R:$R,"T1PR",Outbound_2022_6_28!$J:$J,"<>T1EPGINS")`)
+    calculation.getCell(21, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"FTZ",Outbound_2022_6_28!$R:$R,"T1ER",Outbound_2022_6_28!$J:$J,"<>T1EPGINS")`)
+    calculation.getCell(22, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"FTZ",Outbound_2022_6_28!$J:$J,"T1EPGINS")`)
+    calculation.getCell(23, i).setFormula(`=sum(${calculation.getCell(20, i).getAddress()}:${calculation.getCell(22, i).getAddress()})`)
 
-  workbook.getWorksheet("calculation").getUsedRange().setValues(calculationSource)
+    calculation.getCell(24, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"TMC",Outbound_2022_6_28!$R:$R,"T1PR",Outbound_2022_6_28!$J:$J,"<>T1EPGINS")`)
+    calculation.getCell(25, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"TMC",Outbound_2022_6_28!$R:$R,"T1ER",Outbound_2022_6_28!$J:$J,"<>T1EPGINS")`)
+    calculation.getCell(26, i).setFormula(`=SUMIFS(Outbound_2022_6_28!$E:$E,Outbound_2022_6_28!$Q:$Q,${calculation.getCell(19, i).getAddress()},Outbound_2022_6_28!$S:$S,"TMC",Outbound_2022_6_28!$J:$J,"T1EPGINS")`)
+    calculation.getCell(27, i).setFormula(`=sum(${calculation.getCell(24, i).getAddress()}:${calculation.getCell(26, i).getAddress()})`)
+
+  }
+
+  
 
   console.log('finsish report calculation')
 }
