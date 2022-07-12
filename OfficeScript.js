@@ -170,7 +170,7 @@ function main(workbook: ExcelScript.Workbook) {
             let checkDpcument = checkHandlingUnidData[i][0] as string;
             let checkDpcumentRv = checkHandlingUnidData[i][7] as string;
             if (checkDpcument.toString().indexOf('100') >= 0) {
-              if (checkString.indexOf('-STAG') > 0) {
+              if (checkString.indexOf('-STAG') > 0 || checkString == '') {
                 checkHandlingUnidData[i][2] = pickorderStart[j][3] as string + pickorderStart[j][4] as string
               }
 
@@ -295,6 +295,8 @@ function main(workbook: ExcelScript.Workbook) {
             let checkDpcumentRv = checkHandlingUnidData[i][7] as string;
             if (checkDpcument.toString().indexOf('100') >= 0) {
               if (checkString.indexOf('PICKSTAG') > 0) {
+
+                //checkHandlingUnidData[i][3] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
                 checkHandlingUnidData[i][3] = confirmorderStart[j][3] as string + confirmorderStart[j][4] as string
               }
 
