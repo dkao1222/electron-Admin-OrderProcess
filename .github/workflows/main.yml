@@ -26,7 +26,7 @@ jobs:
       - name: build windows app
         if: matrix.os == 'windows-latest'
         run: |
-          npm run electron:build-win
+          npm run nsis
       - name: cleanup artifacts
         run: |
           npx rimraf "dist_electron/!(*.exe|*.dmg)"
