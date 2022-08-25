@@ -1069,7 +1069,8 @@ apps.post('/post/InformationSet', async (req, res) => {
             , Confirm = 1
             where Confirm = 0;
 
-        UPDATE HAWB_ShipmentData
+            -- Update Vendor 
+            UPDATE HAWB_ShipmentData
 SET Vendor = tt.Forward
 	,HAWB_Expand = tt.HAWB_Expand
 	,confirmForward = 1
@@ -1088,6 +1089,7 @@ FROM (
 			,Cut_Time
 			,Pickup_Time
 			,Cus_Import
+            ,BNB_Control
 			,CASE 
 				WHEN Mon = 1
 					THEN '1'
@@ -1120,71 +1122,13 @@ FROM (
 		) as t
 		where instr(ifnull(t.Mons,0) || ',' || ifnull(t.Tues,0) || ',' || ifnull(t.Weds,0) || ',' || ifnull(t.Thus,0) || ',' || ifnull(t.Fris,0) || ',' || ifnull(t.Sats,0) || ',' || ifnull(t.Suns,0), strftime('%w', date('now'))) > 0
 	) AS tt
-WHERE ifnull(HAWB_ShipmentData.Country_Id, 0) || '-' || ifnull(HAWB_ShipmentData.SHPCondition_id, 0) || '-' || ifnull(HAWB_ShipmentData.Shpt_Id, 0) || '-' || ifnull(HAWB_ShipmentData.Shipto_Id, 0) = ifnull(tt.Country_Id, 0) || '-' || ifnull(tt.Condition_Id, 0) || '-' || ifnull(tt.Shpt_Id, 0) || '-' || ifnull(tt.Shipto_Id, 0)
+    WHERE ifnull(HAWB_ShipmentData.Country_Id, 0) || '-' || ifnull(HAWB_ShipmentData.SHPCondition_id, 0) || '-' || ifnull(HAWB_ShipmentData.Shpt_Id, 0) || '-' || ifnull(HAWB_ShipmentData.Shipto_Id, 0) || '-' || ifnull(HAWB_ShipmentData.BNB_Control,0) = ifnull(tt.Country_Id, 0) || '-' || ifnull(tt.Condition_Id, 0) || '-' || ifnull(tt.Shpt_Id, 0) || '-' || ifnull(tt.Shipto_Id, 0) || '-' || ifnull(tt.BNB_Control,0)
 	AND confirmForward = 0
 	AND Vendor IS NULL;
-	
                 
-                
-    UPDATE HAWB_ShipmentData
-    SET Vendor = tt.Forward
-        ,HAWB_Expand = tt.HAWB_Expand
-        ,confirmForward = 1
-        ,Cut_Time = tt.Cut_Time
-        ,Pickup_Time = tt.Pickup_Time
-        ,Cus_Import = tt.Cus_Import
-    FROM (
-        select * from (
-            SELECT AutoId
-                ,Country_Id
-                ,Condition_Id
-                ,Shpt_Id
-                ,Shipto_Id
-                ,Forward
-                ,HAWB_Expand
-                ,Cut_Time
-                ,Pickup_Time
-                ,Cus_Import
-                ,CASE 
-                    WHEN Mon = 1
-                        THEN '1'
-                    END AS Mons
-                ,CASE 
-                    WHEN Tue = 1
-                        THEN '2'
-                    END AS Tues
-                ,CASE 
-                    WHEN Wed = 1
-                        THEN '3'
-                    END AS Weds
-                ,CASE 
-                    WHEN Thu = 1
-                        THEN '4'
-                    END AS Thus
-                ,CASE 
-                    WHEN Fri = 1
-                        THEN '5'
-                    END AS Fris
-                ,CASE 
-                    WHEN Sat = 1
-                        THEN '6'
-                    END AS Sats
-                ,CASE 
-                    WHEN Sun = 1
-                        THEN '7'
-                    END AS Suns
-            FROM HAWB_Rule
-            ) as t
-            where instr(ifnull(t.Mons,0) || ',' || ifnull(t.Tues,0) || ',' || ifnull(t.Weds,0) || ',' || ifnull(t.Thus,0) || ',' || ifnull(t.Fris,0) || ',' || ifnull(t.Sats,0) || ',' || ifnull(t.Suns,0), strftime('%w', date('now'))) > 0
-        ) AS tt
-    WHERE ifnull(HAWB_ShipmentData.SHPCondition_id, 0) || '-' || ifnull(HAWB_ShipmentData.Shpt_Id, 0) = ifnull(tt.Condition_Id, 0) || '-' || ifnull(tt.Shpt_Id, 0)
-        AND confirmForward = 0
-        AND Vendor IS NULL;
         
-	
-                
-                
-        UPDATE HAWB_ShipmentData
+
+            UPDATE HAWB_ShipmentData
         SET Vendor = tt.Forward
             ,HAWB_Expand = tt.HAWB_Expand
             ,confirmForward = 1
@@ -1203,6 +1147,7 @@ WHERE ifnull(HAWB_ShipmentData.Country_Id, 0) || '-' || ifnull(HAWB_ShipmentData
                     ,Cut_Time
                     ,Pickup_Time
                     ,Cus_Import
+                    ,BNB_Control
                     ,CASE 
                         WHEN Mon = 1
                             THEN '1'
@@ -1235,9 +1180,123 @@ WHERE ifnull(HAWB_ShipmentData.Country_Id, 0) || '-' || ifnull(HAWB_ShipmentData
                 ) as t
                 where instr(ifnull(t.Mons,0) || ',' || ifnull(t.Tues,0) || ',' || ifnull(t.Weds,0) || ',' || ifnull(t.Thus,0) || ',' || ifnull(t.Fris,0) || ',' || ifnull(t.Sats,0) || ',' || ifnull(t.Suns,0), strftime('%w', date('now'))) > 0
             ) AS tt
-        WHERE ifnull(HAWB_ShipmentData.Country_Id, 0) || '-' || ifnull(HAWB_ShipmentData.SHPCondition_id, 0) = ifnull(tt.Country_Id, 0) || '-' || ifnull(tt.Condition_Id, 0)
+        WHERE ifnull(HAWB_ShipmentData.Country_Id, 0) || '-' || ifnull(HAWB_ShipmentData.SHPCondition_id, 0) || '-' || 0 ||'-' || ifnull(HAWB_ShipmentData.Shipto_Id, 0) || '-' || ifnull(HAWB_ShipmentData.BNB_Control,0) = ifnull(tt.Country_Id, 0) || '-' || ifnull(tt.Condition_Id, 0) || '-'|| ifnull(tt.Shpt_Id, 0) || '-' || ifnull(tt.Shipto_Id, 0)  || '-' || ifnull(tt.BNB_Control,0)
             AND confirmForward = 0
             AND Vendor IS NULL;
+
+            -- Update Vendor 
+            UPDATE HAWB_ShipmentData
+SET Vendor = tt.Forward
+	,HAWB_Expand = tt.HAWB_Expand
+	,confirmForward = 1
+	,Cut_Time = tt.Cut_Time
+	,Pickup_Time = tt.Pickup_Time
+	,Cus_Import = tt.Cus_Import
+FROM (
+	select * from (
+		SELECT AutoId
+			,Country_Id
+			,Condition_Id
+			,Shpt_Id
+			,Shipto_Id
+			,Forward
+			,HAWB_Expand
+			,Cut_Time
+			,Pickup_Time
+			,Cus_Import
+            ,BNB_Control
+			,CASE 
+				WHEN Mon = 1
+					THEN '1'
+				END AS Mons
+			,CASE 
+				WHEN Tue = 1
+					THEN '2'
+				END AS Tues
+			,CASE 
+				WHEN Wed = 1
+					THEN '3'
+				END AS Weds
+			,CASE 
+				WHEN Thu = 1
+					THEN '4'
+				END AS Thus
+			,CASE 
+				WHEN Fri = 1
+					THEN '5'
+				END AS Fris
+			,CASE 
+				WHEN Sat = 1
+					THEN '6'
+				END AS Sats
+			,CASE 
+				WHEN Sun = 1
+					THEN '7'
+				END AS Suns
+		FROM HAWB_Rule
+		) as t
+		where instr(ifnull(t.Mons,0) || ',' || ifnull(t.Tues,0) || ',' || ifnull(t.Weds,0) || ',' || ifnull(t.Thus,0) || ',' || ifnull(t.Fris,0) || ',' || ifnull(t.Sats,0) || ',' || ifnull(t.Suns,0), strftime('%w', date('now'))) > 0
+	) AS tt
+    WHERE ifnull(HAWB_ShipmentData.Country_Id, 0) || '-' || ifnull(HAWB_ShipmentData.SHPCondition_id, 0) || '-' || ifnull(HAWB_ShipmentData.Shpt_Id, 0) || '-' || 0 || '-' || ifnull(HAWB_ShipmentData.BNB_Control,0) = ifnull(tt.Country_Id, 0) || '-' || ifnull(tt.Condition_Id, 0) || '-' || ifnull(tt.Shpt_Id, 0) || '-' || ifnull(tt.Shipto_Id, 0) || '-' || ifnull(tt.BNB_Control,0)
+	AND confirmForward = 0
+	AND Vendor IS NULL;
+
+
+            UPDATE HAWB_ShipmentData
+    SET Vendor = tt.Forward
+        ,HAWB_Expand = tt.HAWB_Expand
+        ,confirmForward = 1
+        ,Cut_Time = tt.Cut_Time
+        ,Pickup_Time = tt.Pickup_Time
+        ,Cus_Import = tt.Cus_Import
+    FROM (
+        select * from (
+            SELECT AutoId
+                ,Country_Id
+                ,Condition_Id
+                ,Shpt_Id
+                ,Shipto_Id
+                ,Forward
+                ,HAWB_Expand
+                ,Cut_Time
+                ,Pickup_Time
+                ,Cus_Import
+                ,BNB_Control
+                ,CASE 
+                    WHEN Mon = 1
+                        THEN '1'
+                    END AS Mons
+                ,CASE 
+                    WHEN Tue = 1
+                        THEN '2'
+                    END AS Tues
+                ,CASE 
+                    WHEN Wed = 1
+                        THEN '3'
+                    END AS Weds
+                ,CASE 
+                    WHEN Thu = 1
+                        THEN '4'
+                    END AS Thus
+                ,CASE 
+                    WHEN Fri = 1
+                        THEN '5'
+                    END AS Fris
+                ,CASE 
+                    WHEN Sat = 1
+                        THEN '6'
+                    END AS Sats
+                ,CASE 
+                    WHEN Sun = 1
+                        THEN '7'
+                    END AS Suns
+            FROM HAWB_Rule
+            ) as t
+            where instr(ifnull(t.Mons,0) || ',' || ifnull(t.Tues,0) || ',' || ifnull(t.Weds,0) || ',' || ifnull(t.Thus,0) || ',' || ifnull(t.Fris,0) || ',' || ifnull(t.Sats,0) || ',' || ifnull(t.Suns,0), strftime('%w', date('now'))) > 0
+        ) AS tt
+    WHERE ifnull(HAWB_ShipmentData.SHPCondition_id, 0) || '-' || ifnull(HAWB_ShipmentData.Shpt_Id, 0) || '-' || 0 ||'-' || ifnull(HAWB_ShipmentData.BNB_Control,0) = ifnull(tt.Condition_Id, 0) || '-' || ifnull(tt.Shpt_Id, 0) || '-' || ifnull(tt.Shipto_Id, 0) || '-'  || ifnull(tt.BNB_Control,0)
+        AND confirmForward = 0
+        AND Vendor IS NULL;
                 
                 update HAWB_ShipmentData
                 set R_CutTime = case when Cut_Time is null then strftime('%Y-%m-%d %H:%M',strftime('%Y-%m-%d %H:%M',datetime(ImportDateTime,'+10 hours')))
@@ -1327,13 +1386,12 @@ WHERE ifnull(HAWB_ShipmentData.Country_Id, 0) || '-' || ifnull(HAWB_ShipmentData
       })
       db.serialize(function () {
         db.exec(`-- assign tracking by singal
-        -- assign tracking by singal
         delete from TempRuleAssign;
         WITH RECURSIVE
-            cnt( ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With )  AS 
-            ( select  ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, max(DP), max(SHPCondition), Start_With  from HAWB_ShipmentData where HAWB_Expand = 0 and Duplicate_Control = 0 and M_HAWB is null group by ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time , Start_With order by ImportDateTime )
-            insert into TempRuleAssign ( ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With )  select AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With  from cnt;
-            
+        cnt( ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With )  AS 
+        ( select  ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, max(DP), max(SHPCondition), Start_With  from HAWB_ShipmentData where HAWB_Expand = 0 and Duplicate_Control = 0 and M_HAWB is null group by ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time , Start_With order by ImportDateTime )
+        insert into TempRuleAssign ( ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With )  select  ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With  from cnt;
+
         -- assign tracking by expand
         delete from TempRuleRunTime;
         delete from TempRuleAssignExpand;
@@ -1350,11 +1408,12 @@ WHERE ifnull(HAWB_ShipmentData.Country_Id, 0) || '-' || ifnull(HAWB_ShipmentData
         insert into TempRuleAssignDup (AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With, R_PickupTime) select AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With, R_PickupTime  from cnt;
 
         --assign duplicate tracking for regular
-            delete from TempRuleAssignDup;
-            WITH RECURSIVE
-            cnt( AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With, R_PickupTime ) AS ( select AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor, R_CutTime , DP, SHPCondition, Start_With, R_PickupTime from HAWB_ShipmentData where  Duplicate_Control = 1 and R_PickupTime is null and date(ImportDateTime) = date('now') order by ImportDateTime, AutoId )
-            insert into TempRuleAssignDup (AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With, R_PickupTime) select AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With, R_PickupTime  from cnt;
-            
+        delete from TempRuleAssignDup;
+        WITH RECURSIVE
+        cnt( AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With, R_PickupTime ) AS ( select AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor, R_CutTime , DP, SHPCondition, Start_With, R_PickupTime from HAWB_ShipmentData where  Duplicate_Control = 1 and R_PickupTime is null and date(ImportDateTime) = date('now') order by ImportDateTime, AutoId )
+        insert into TempRuleAssignDup (AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With, R_PickupTime) select AutoId, ImportDateTime,  ShipmentNo, shipto, Vendor , Cut_Time, DP, SHPCondition, Start_With, R_PickupTime  from cnt;
+        
+                               
                     `, function (err, rows) {
           if (err) {
             console.log(err.message)
@@ -1799,10 +1858,14 @@ apps.get('/get/deliveryInform', async function (req, res) {
 		, query_order_downs_54.ShipmentNo as Act_ShipmentNO
     , query_order_downs_54.Country as Act_Country
 		, query_order_downs_54.ShipTo as Act_ShipTo
+    , TBL_ZAVGR043_Prod.Delivery as Act_Delivery
+		, TBL_ZAVGR043_Prod.DP as Act_DP
           from CutTimeReport_Shipment inner join query_order_downs_54
           on CutTimeReport_Shipment.ShipmentNo = query_order_downs_54.ShipmentNo
           left join HAWB_ShipmentData
-          on CutTimeReport_Shipment.ShipmentNo = HAWB_ShipmentData.ShipmentNo`
+          on CutTimeReport_Shipment.ShipmentNo = HAWB_ShipmentData.ShipmentNo
+          left join TBL_ZAVGR043_Prod
+		  on CutTimeReport_Shipment.ShipmentNo = TBL_ZAVGR043_Prod.ShipmentNo`
 
     } else if (req.query.controllog == 'control_log_regular') {
       query = `select *
@@ -1817,10 +1880,14 @@ apps.get('/get/deliveryInform', async function (req, res) {
         , query_order_Regular_54.ShipmentNo as Act_ShipmentNO 
         , query_order_Regular_54.Country as Act_Country
 		, query_order_Regular_54.ShipTo as Act_ShipTo
+    , TBL_ZAVGR043_Prod.Delivery as Act_Delivery
+		, TBL_ZAVGR043_Prod.DP as Act_DP
         from CutTimeReport_Shipment inner join query_order_Regular_54
         on CutTimeReport_Shipment.ShipmentNo = query_order_Regular_54.ShipmentNo
         left join HAWB_ShipmentData
-        on query_order_Regular_54.ShipmentNo = HAWB_ShipmentData.ShipmentNo`
+        on query_order_Regular_54.ShipmentNo = HAWB_ShipmentData.ShipmentNo
+        left join TBL_ZAVGR043_Prod
+		  on CutTimeReport_Shipment.ShipmentNo = TBL_ZAVGR043_Prod.ShipmentNo`
 
     } else {
       console.log('error table')
@@ -1936,7 +2003,7 @@ apps.get('/get/deliveryInform', async function (req, res) {
       })
     }
 
-    console.log('getQueryData:' + getQueryData())
+    //console.log('getQueryData:' + getQueryData())
 
     const rendeData = { data: await getQueryData(), dbData: await getQueryInforData(), tracking: await getTrackingBarcode() }
     res.render('controllog_checklist_new.ejs', rendeData)
@@ -1951,6 +2018,12 @@ apps.get('/get/deliveryInform', async function (req, res) {
     req.query.maxLogNum
     req.query.queryDate
     const fs = require('fs')
+
+    const puppeteer = require('puppeteer-core');
+    const edgePaths = require("edge-paths");
+    const EDGE_PATH = edgePaths.getEdgePath();
+    
+
     try {
       if (fs.existsSync(path.resolve(__dirname, '../temp/batchJob.pdf'))) {
         fs.unlinkSync(path.resolve(__dirname, '../temp/batchJob.pdf'))
@@ -1982,33 +2055,32 @@ apps.get('/get/deliveryInform', async function (req, res) {
       })
     }
     //const merge = require('easy-pdf-merge');
-    const { PDFDocument } = require('pdf-lib');
+    
 
 
-    await getShipmentNo(query).then(async function (result) {
+    getShipmentNo(query).then(async function (result) {
 
-      console.log('shipment: ' + result)
+      //console.log('shipment: ' + result)
+      
+      const browser = await puppeteer.launch(
+        {
+          headless: true,
+          executablePath: EDGE_PATH,
+          args: [
+              
+              "--no-sandbox",
+          ]
+          //"args": ["--no-sandbox"]
+          //"args": ["--kiosk-printing"]
+        });
+      const page = await browser.newPage();
 
-
-
-
-      const puppeteer = require('puppeteer-core');
-      const edgePaths = require("edge-paths");
-
-      const EDGE_PATH = edgePaths.getEdgePath();
       (async () => {
         var fileName = []
 
         for (let i = 0; i < result.length; i++) {
           //const element = array[index];
-          const browser = await puppeteer.launch(
-            {
-              headless: true,
-              executablePath: EDGE_PATH
-              //"args": ["--no-sandbox"]
-              //"args": ["--kiosk-printing"]
-            });
-          const page = await browser.newPage();
+          
 
 
           console.log(result[i]['ShipmentNo'])
@@ -2016,16 +2088,17 @@ apps.get('/get/deliveryInform', async function (req, res) {
           //const browser = await puppeteer.launch();
           //res.write(`<h4> Transfer Shipment: ${result[i]['ShipmentNo']} to PDF </h4>`)
 
-          console.log('openL' + `http://${await host}:3000/get/deliveryInform?function=downs_check_list&shipmentNo=${result[i]['ShipmentNo']}`)
+          //console.log('openL' + `http://${await host}:3000/get/deliveryInform?function=downs_check_list&shipmentNo=${result[i]['ShipmentNo']}`)
           await page.goto(`http://${await host}:3000/get/deliveryInform?function=downs_check_list&shipmentNo=${result[i]['ShipmentNo']}`);
 
           await page.pdf({ path: path.resolve(__dirname, `../temp/${result[i]['ShipmentNo']}.pdf`), format: 'A4' });
 
           fileName.push(path.resolve(__dirname, `../temp/${result[i]['ShipmentNo']}.pdf`))
 
-          await browser.close();
+          
 
         };
+        await browser.close();
         //await page.evaluate(() => { window.print() })
 
 
@@ -2043,6 +2116,7 @@ apps.get('/get/deliveryInform', async function (req, res) {
     })
 
     const pdfLibMerge = async (fileName) => {
+      const { PDFDocument } = require('pdf-lib');
       const pdfDoc = await PDFDocument.create()
       //const doc = await PDFDocument.create();
       //const dataPage = []
@@ -2398,8 +2472,8 @@ $inst.Display()
     on TBL_ZAVGR043_Prod.Delivery = TBL_LT22_Prod.Dest_Bin
     inner join CutTimeReport_Shipment
     on TBL_ZAVGR043_Prod.ShipmentNo = CutTimeReport_Shipment.ShipmentNo
-    where TBL_LT22_Prod.Source_Typ not in ('TSP','922')
-    and ProformaD <> ''
+    where TBL_LT22_Prod.Source_Typ not in ('TSP','922') or TBL_LT22_Prod.Source_Typ is null
+    --and ProformaD <> ''
     and TBL_LT22_Prod.CS is null
     order by TBL_ZAVGR043_Prod.ShipmentNo , TBL_LT22_Prod.TONumber, TBL_LT22_Prod.Item`
     if (req.query.controllog == 'control_log_downs') {
@@ -2415,10 +2489,14 @@ $inst.Display()
       , query_order_downs_54.ShipmentNo as Act_ShipmentNO
       , query_order_downs_54.Country as Act_Country
 		, query_order_downs_54.ShipTo as Act_ShipTo
+    , TBL_ZAVGR043_Prod.Delivery as Act_Delivery
+		, TBL_ZAVGR043_Prod.DP as Act_DP
           from CutTimeReport_Shipment inner join query_order_downs_54
           on CutTimeReport_Shipment.ShipmentNo = query_order_downs_54.ShipmentNo
           left join HAWB_ShipmentData
           on CutTimeReport_Shipment.ShipmentNo = HAWB_ShipmentData.ShipmentNo
+          left join TBL_ZAVGR043_Prod
+		  on CutTimeReport_Shipment.ShipmentNo = TBL_ZAVGR043_Prod.ShipmentNo
           order by CutTimeReport_Shipment.ImportDateTime `
 
     } else if (req.query.controllog == 'control_log_regular') {
@@ -2434,10 +2512,14 @@ $inst.Display()
       , query_order_Regular_54.ShipmentNo as Act_ShipmentNO 
       , query_order_Regular_54.Country as Act_Country
 		, query_order_Regular_54.ShipTo as Act_ShipTo
+    , TBL_ZAVGR043_Prod.Delivery as Act_Delivery
+		, TBL_ZAVGR043_Prod.DP as Act_DP
         from CutTimeReport_Shipment inner join query_order_Regular_54
         on CutTimeReport_Shipment.ShipmentNo = query_order_Regular_54.ShipmentNo
         left join HAWB_ShipmentData
         on query_order_Regular_54.ShipmentNo = HAWB_ShipmentData.ShipmentNo
+        left join TBL_ZAVGR043_Prod
+		  on CutTimeReport_Shipment.ShipmentNo = TBL_ZAVGR043_Prod.ShipmentNo
         order by CutTimeReport_Shipment.ImportDateTime `
 
     } else {
@@ -2734,7 +2816,7 @@ $inst.Display()
       ,b.Vendor
       from Order_ShipmentData_Downs_LogNum a inner join HAWB_ShipmentData b
       on a.ShipmentNo = b.ShipmentNo
-      INNER join TBL_Manifest c 
+      left join TBL_Manifest c 
       on a.ShipmentNo = c.Delivery_Shipment
       where b.R_PickupTime = '${req.query.pickupDateTime}'
       and a.SHPCondition in (1)
@@ -2763,7 +2845,7 @@ $inst.Display()
       ,c.Shipping_Carrier
       from Order_ShipmentData_Downs_LogNum a inner join HAWB_ShipmentData b
       on a.ShipmentNo = b.ShipmentNo
-      INNER join TBL_Manifest c 
+      left join TBL_Manifest c 
       on a.ShipmentNo = c.Delivery_Shipment
       INNER join TBL_ZAVGR043_Prod d 
       on a.ShipmentNo = d.ShipmentNo
@@ -2796,7 +2878,7 @@ $inst.Display()
       ,c.Shipping_Carrier
       from Order_ShipmentData_Regular_LogNum a inner join HAWB_ShipmentData b
       on a.ShipmentNo = b.ShipmentNo
-      INNER join TBL_Manifest c 
+      left join TBL_Manifest c 
       on a.ShipmentNo = c.Delivery_Shipment
       where b.R_PickupTime = '${req.query.pickupDateTime}'
       and a.SHPCondition in (11, 12)
@@ -2825,7 +2907,7 @@ $inst.Display()
       ,c.Shipping_Carrier
       from Order_ShipmentData_Downs_LogNum a inner join HAWB_ShipmentData b
       on a.ShipmentNo = b.ShipmentNo
-      INNER join TBL_Manifest c 
+      left join TBL_Manifest c 
       on a.ShipmentNo = c.Delivery_Shipment
       INNER join TBL_ZAVGR043_Prod d 
       on a.ShipmentNo = d.ShipmentNo
