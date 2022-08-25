@@ -28,9 +28,9 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           npm run nsis
-      #- name: cleanup artifacts
-      #  run: |
-      #    npx rimraf "dist_electron/!(*.exe|*.dmg)"
+      - name: cleanup artifacts
+        run: |
+          npx rimraf "dist_electron/!(*.exe|*.dmg)"
           
       - name: upload artifacts
         uses: actions/electron-Admin-OrderProcess
