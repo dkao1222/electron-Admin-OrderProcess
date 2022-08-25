@@ -22,6 +22,7 @@ session.findById("wnd[1]/usr/subSUBSCREEN_STEPLOOP:SAPLSPO5:0150/sub:SAPLSPO5:01
 session.findById("wnd[1]/tbar[0]/btn[0]").press
 session.findById("wnd[1]/usr/ctxtDY_PATH").text = WScript.Arguments(1)
 session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = WScript.Arguments(0)
+session.findById("wnd[1]/usr/ctxtDY_FILE_ENCODING").text = "4110"
 session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = 14
 session.findById("wnd[1]/tbar[0]/btn[0]").press
 

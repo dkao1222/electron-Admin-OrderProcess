@@ -2,22 +2,26 @@
 
 
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Menu ,ipcMain, ipcRenderer} = require('electron')
+const { app, Tray, BrowserWindow, Menu ,ipcMain, ipcRenderer, webContents, nativeImage} = require('electron')
+const {hostGet, hostSet, hostUpdate} = require('./db/dbConfig/hostConfig')
+
+
 
 const path = require('path')
 
 const menuItem = require('./mainmenu/menuitem')
-
+const { main } = require('@popperjs/core')
 
 
 
 let mainWindow
+let childWindow
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: path.resolve(path.join(__dirname,'./public/assist/img/UPS_logo.png')),
+    icon: path.resolve(path.join(__dirname ,'./public/assist/img/UPS_logo.png')),
     webPreferences: {
 
       nodeIntegration: true,
@@ -25,10 +29,18 @@ const createWindow = () => {
     }
   })
 
+  
+  
+  
 
-
+  
+  //mainWindow.loadURL()
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, './views/index.html'))
+  
+  //mainWindow.webContents.getURL('http://127.0.0.1:3010/get/query?table=hostnameConfig')
+  //mainWindow.webContents.loadURL('http://127.0.0.1:3010/get/query?table=hostnameConfig')
+  //mainWindow.loadURL('http://127.0.0.1:3010/get/query?table=hostnameConfig')
 
   const serviceWeb = require('./route/startService');
   const serviceLocal = require('./route/startLocalService')
@@ -39,7 +51,12 @@ const createWindow = () => {
 
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+
+  devtools = new BrowserWindow()
+  mainWindow.webContents.setDevToolsWebContents(devtools.webContents)
+  mainWindow.webContents.openDevTools({ mode: 'detach' }) 
+  //mainWindow.webContents.openDevTools({ mode: 'detach' })
+  //mainWindow.webContents.openDevTools()
 
   ipcMain.handle('checkSapLogin', () => {
     console.log('get Textarea value to clipboard')
@@ -49,18 +66,41 @@ const createWindow = () => {
 
     const check = spawn('cscript.exe', [runZAVGR043])
     
-  })
+  });
 
+  ipcMain.handle('changeHost', () => {
+    console.log('handle change')
+    const os = require('os')
+    hostUpdate(os.hostname().toLowerCase())
+    //mainWindow.webContents.reloadIgnoringCache()
 
+  });
+
+  /*ipcMain.handle('createInvoice', () => {
+    console.log('get command create invoice')
+  })*/
+
+  
 
 
 }
+
+
+
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow()
+
+  const icon = nativeImage.createFromPath(path.resolve(path.join(__dirname ,'./public/assist/img/UPS_logo.png')))
+  tray = new Tray(icon)
+  const traymenu = Menu.buildFromTemplate(menuItem)
+  tray.setContextMenu(traymenu)
+
+  
 
   app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the

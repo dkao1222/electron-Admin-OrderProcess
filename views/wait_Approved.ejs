@@ -1,0 +1,201 @@
+<%- include('./header.ejs', {title: title}); %>
+<button type="button" class="btn btn-outline-dark" onclick="history.back()">Go Back</button>
+<h1><%= menuTitle %></h1>
+    <table class="table table-bordered border-dark" >
+      
+      <thead class="table-dark">
+
+        <tr>
+          <td class="col">Status</td>
+          <td class="col" style="width: 25px ;">Country</td>
+          <td class="col">Shpt</td>
+          <td class="col">DP</td>
+          <td class="col" style="width: 25px;">TotalDN#</td>
+          <td class="col" style="width: 25px;">TotalItem</td>
+          <td class="col" style="width: 25px;">TotalPieces</td>
+          
+          <td class="col">Orde</td>
+          <td class="col">Sto.Location</td>
+          <td class="col">Ship-To</td>
+          <td class="col">Shipment No</td>
+          <td class="col">Shp Create Date Time</td>
+          <td class="col text-wrap" style="width: 50px;">Over All Picking Status</td>
+          <td class="col text-wrap" style="width: 50px;">Over All WM Status</td>
+          <td class="col text-wrap" style="width: 50px;">Over All GM Status</td>
+          <td class="col text-wrap" style="width: 50px;">Func.</td>
+        </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i < data.length; i++) { %>
+            
+            <tr>
+           
+            
+            <td>
+              <% if (data[i]['CN_Ctrl_Parts']==1) { %>
+                
+                  <ion-icon style="width:25px; height:25px" src="/img/china_flag.svg"></ion-icon>
+                
+
+                <% } %>
+                <% if (data[i]['W_Parts_Control']==1) { %>
+                  
+                    <ion-icon style="width:25px; height:25px" src="/img/W_Parts.svg"></ion-icon>
+                  
+
+                <% } %>
+                <% if (data[i]['UNR_Control']==1) { %>
+                  
+                    <ion-icon style="width:25px; height:25px" src="/img/UNR_REG_Parts.svg"></ion-icon>
+                  
+
+                <% } %>
+                <% if (data[i]['HAZ_Control']==1) { %>
+                  
+                    <ion-icon style="width:25px; height:25px" src="/img/HAZ_PArts.svg"></ion-icon>
+                  
+
+                <% } %>
+                <% if (data[i]['OrderNotFinish_Control']==1) { %>
+                  
+                  <ion-icon style="width:25px; height:25px" src="/img/Order_NotCoompleted.svg"></ion-icon>
+                
+
+              <% } %>
+              <% if (data[i]['Piece_Control']==1) { %>
+                  
+                <ion-icon style="width:25px; height:25px" src="/img/Pieces_Issue.svg"></ion-icon>
+              
+
+              <% } %>
+            </td>
+            
+            
+            
+            <% if ( data[i]['Country'] == 'CN' ) { %> 
+              <td class="table-warning">
+                <%= data[i]['Country'] %>
+              </td>
+            <% } else if ( data[i]['Country'] == 'TW' ) { %> 
+              <td class="table-success">
+                <%= data[i]['Country'] %>
+              </td>
+            <% } else { %>
+              <td>
+                <%= data[i]['Country'] %>
+              </td>
+            <% } %>
+              
+              
+            <td>
+              <%= data[i]['ShPt'] %>
+            </td>
+            <td>
+              <%= data[i]['DP'] %>
+            </td>
+            
+            <% if ( data[i]['TotalDN'] > 1 ) { %> 
+              <td class="bg-warning">
+                <%= data[i]['TotalDN'] %>
+              </td>
+            <% } else { %>
+              <td>
+                <%= data[i]['TotalDN'] %>
+              </td>
+            <% } %>
+            <% if ( data[i]['TotalItem'] > 1 ) { %> 
+              <td class="bg-danger">
+                <%= data[i]['TotalItem'] %>
+              </td>
+            <% } else { %>
+              <td>
+                <%= data[i]['TotalItem'] %>
+              </td>
+            <% } %>
+            <% if (data[i]['Piece_Control']==1) { %>
+              <td class="table-danger">
+                <%= data[i]['TotalPieces'] %>
+              </td>
+              <% } else { %>
+                <td >
+                  <%= data[i]['TotalPieces'] %>
+                </td>
+              <%} %> 
+            
+            
+            <td>
+              <%= data[i]['Orde'] %>
+            </td>
+            <td>
+              <%= data[i]['StorageLocation'] %>
+            </td>
+            <td>
+              <%= data[i]['Ship-To'] %>
+            </td>
+            <td id="<%= data[i]['ShipmentNo'] %>" style="font-weight: bold ; " class="text-wrap">
+              <%= data[i]['ShipmentNo'] %>
+              <button type="button" class="btn btn-default"
+                  onclick="window.location.href=`/get/dashboard?function=getShipmentChild_WaitApprove&shipmentNo=<%= data[i]['ShipmentNo'] %>`">
+                  <ion-icon name="list-outline"></ion-icon>
+                </button>
+            </td>
+            <td>
+              <%= data[i]['ShipmentCreateDateTime'] %>
+            </td>
+            <% if (data[i]['OverallPickingStatus']==='C' ) { %>
+              <td style="background-color: #2ecc71;">
+                <%= data[i]['OverallPickingStatus'] %>
+              </td>
+              <% } else { %>
+                <td style="background-color: #c0392b">
+                  <%= data[i]['OverallPickingStatus'] %>
+                </td>
+                <% } %>
+                  <% if (data[i]['OverallWMStatus']==='C' ) { %>
+                    <td style="background-color: #2ecc71;">
+                      <%= data[i]['OverallWMStatus'] %>
+                    </td>
+                    <% } else { %>
+                      <td style="background-color: #c0392b">
+                        <%= data[i]['OverallWMStatus'] %>
+                      </td>
+                      <% } %>
+                        <% if (data[i]['OverallGMStatus']==='C' ) { %>
+                          <td style="background-color: #2ecc71;">
+                            <%= data[i]['OverallGMStatus'] %>
+                          </td>
+                          <% } else { %>
+                            <td style="background-color: #c0392b">
+                              <%= data[i]['OverallGMStatus'] %>
+                            </td>
+                            <% } %>
+                            <td>
+                              <button type="button" class="btn btn-default"
+                                onclick="submitTrasnfer(<%= data[i]['ShipmentNo'] %>)">
+                                <ion-icon style="width:50px; height:20px" src="/img/Approve.svg"></ion-icon>
+                              </button>
+                            </td>
+                          </tr>
+          <% } %>
+      </tbody>
+        </table>
+        <script>
+            var submitTrasnfer = function(shipment) {
+              var answer = confirm('Approve Shipment: ' + shipment + " ??")
+              if (answer) {
+                $.ajax({
+                  url: `/post/InformationSet?function=transferWaitApproved&shipmentNo=${shipment}`,
+                  type: 'POST',
+                  success: function (response) {
+                    alert(response);
+                    window.location.reload();
+                  },
+                  error: function (e) {
+                    alert('Error: ' + e);
+                  }
+                })
+              }
+          }
+        </script>
+      </body>
+      </html>

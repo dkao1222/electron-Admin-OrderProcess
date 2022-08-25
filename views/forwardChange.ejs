@@ -11,13 +11,14 @@
         <label class="form-check-label" for="vendorChange">
           <%= vendor[i]['Vendor'] %>
         </label>
+        </input>
       </div>
 
       <% } %>
-      <div class="container">
-        <button type="button" class="btn btn-danger" onclick="submitChange(<%= shipmentNo %>)">Post</button>
-      </div>
-        
+        <div class="container">
+          <button type="button" class="btn btn-danger" onclick="submitChange(<%= shipmentNo %>)">Post</button>
+        </div>
+
 
         <% } else if (hawb.length> 0){ %>
           <div class="container">
@@ -25,9 +26,10 @@
             <label class="form-check-label" for="vendorChange">
               <%= hawb[i]['Vendor'] %>
             </label>
+            </input>
           </div>
-       <% } %>
-      
+          <% } %>
+
 
             <script>
 
@@ -43,7 +45,7 @@
                       console.log(element[i]['id'])
                       $.ajax({
                         method: 'POST',
-                        url: `http://<%= hostname %>:3000/post/InformationSet?function=vendorchange&shipmentNo=${shipment}&vendor=${element[i]['id']}`
+                        url: `/post/InformationSet?function=vendorchange&shipmentNo=${shipment}&vendor=${element[i]['id']}`
                       })
                       window.history.back();
                       //location.reload();

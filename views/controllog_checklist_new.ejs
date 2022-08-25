@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/bwip/bwip-js-min.js"></script>
+    <title>Document</title>
+    <style>
+        
+        body {
+            width: 230mm;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0;
+            font-size: 12pt;
+            background: rgb(204,204,204); 
+        }
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        .main-page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 10mm auto;
+            background: white;
+            box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+        }
+        .sub-page {
+            padding: 1cm;
+            height: 297mm;
+        }
+        @page {
+        size: A4;
+        margin: 10mm;
+        }
+        @media print {
+        html, body {
+            width: 210mm;
+            height: 297mm;        
+        }
+        .main-page {
+            margin: 0;
+            border: initial;
+            border-radius: initial;
+            width: initial;
+            min-height: initial;
+            box-shadow: initial;
+            background: initial;
+            page-break-after: always;
+        }
+        }
+    </style>
+</head>
+<body >
+    <div class="main-page">
+        <table style="border-collapse: collapse; width: 100%; height: 59px;" border="0">
+            <tbody>
+            <tr>
+            <td style="width: 12.5%; text-align: center; font-size: 40px; font-weight: bold;"><%= data[0].Country%></td> <!-- Country -->
+            <td style="width: 1%; text-align: center;"></td>
+            <td style="width: 30.5%; text-align: center; font-size: 20px; font-weight: bold;"><%= dbData[0].Dimensions_Set%> / <%= dbData[0].Weight_Set%></td>
+            <td style="width: 1.5%; text-align: center;"> </td>
+            <td style="width: 1.5%; text-align: center;"> </td>
+            <% if (data[0].Country == 'TW' ) { %>
+                <% if (data[0].SHPCondition == '1' ) { %>
+                    <td style="width: 12.5%; text-align: center; font-size: 20px; font-weight: bold;">on duty</td>
+                <% } else { %>
+                    <% if (data[0].SHPCondition == '0' ) { %>
+                        <td style="width: 12.5%; text-align: center; font-size: 20px; font-weight: bold;">Super Down</td>
+                    <% } else { %>
+                    <% } %>
+
+                <% } %>
+
+            <% } else { %>
+                <% if (data[0].SHPCondition == '1' ) { %>
+                    <td style="width: 12.5%; text-align: center; font-size: 20px; font-weight: bold;">on duty</td>
+                <% } else { %>
+                    <% if (data[0].SHPCondition == '0' ) { %>
+                        <td style="width: 12.5%; text-align: center; font-size: 20px; font-weight: bold;">Super Down</td>
+                    <% } else { %>
+                    <% } %>
+
+                <% } %>
+            <% } %>
+
+            <!--<td style="width: 12.5%; text-align: center;">on duty/Super down</td>-->
+            <td style="width: 12.5%; text-align: center;  font-weight: bold;"><%= dbData[0].plant%></td>
+            <td style="width: 12.5%; text-align: center;  font-weight: bold;"><%= data[0].SHPCondition%></td>
+            </tr>
+            </tbody>
+            </table>
+            <table style="border-collapse: collapse; width: 100%; height: 100px;" border="0">
+            <tbody>
+            <tr style="height: 60px;">
+            <td style="width: 15.0094%; height: 60px;">
+            <table style="border-collapse: collapse; width: 100%; height: 60px;" border="0">
+            <tbody>
+            <tr>
+            <td style="width: 32.5243%; text-align: center; font-size: 30px; font-weight: bold;">S#</td>
+            <td style="width: 67.4753%; text-align: center; font-size: 30px; font-weight: bold;"><%= data[0].logNum%></td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            <td style="width: 13.4469%; height: 60px; text-align: center;">
+            <table style="border-collapse: collapse; width: 97.8261%; height: 60px;" border="0">
+            <tbody>
+            <tr style="height: 43px;">
+            <td style="width: 100%; height: 43px;"><img id="location"></img></td>
+            </tr>
+            <tr style="height: 17px;">
+                <% if  (dbData[0].Country == 'TW' ) {%> 
+                    <td style="width: 100%; text-align: center; height: 19px;"><%= dbData[0].Customer_Name %><%= dbData[0].Customer_Feb %></td>
+                <%} else {  %>
+                    <td style="width: 100%; height: 17px; font-size: 19px; font-weight: bold;"><%= dbData[0].Location%></td>
+                <% } %>
+
+            
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            <td style="width: 71.5436%; height: 71px;">
+            <table style="border-collapse: collapse; width: 99.2193%; height: 55px;" border="0">
+            <tbody>
+            <tr style="height: 19px;">
+                <td style="width: 100%; text-align: center; height: 19px;"><%= dbData[0].ShippingInstructions%></td>
+           
+            </tr>
+            <tr style="height: 13px;">
+            <td style="width: 100%; height: 13px;">
+            <table style="border-collapse: collapse; width: 100%;" border="0">
+            <tbody>
+            <tr>
+            <td style="width: 33.3333%; text-align: center; font-size: 19px; font-weight: bold;"><%= dbData[0].OutboundSet_set%></td>
+            <td style="width: 33.3333%; text-align: center;"></td>
+            <td style="width: 33.3333%; text-align: center;"><%= dbData[0].ImportDateTime%></td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            </tr>
+            <tr style="height: 72px;">
+            <td style="width: 15.0094%; height: 72px;">
+            <table style="border-collapse: collapse; width: 100.358%; height: 74px;" border="0">
+            <tbody>
+            <tr style="height: 18px;">
+            <td style="width: 100%; text-align: center; height: 18px;">HAWB</td>
+            </tr>
+            <tr style="height: 33px;">
+            <!--<td style="width: 100%; height: 33px; text-align: center;"><%= data[0].M_HAWB%><%= data[0].D_HAWB%></td>-->
+            <td style="width: 100%; height: 33px; text-align: center;"><img id="tracking"></img></td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            <td style="width: 13.4469%; height: 72px; text-align: center;">
+            <table style="border-collapse: collapse; width: 97.7331%; height: 75px;" border="0">
+            <tbody>
+            <tr style="height: 18px;">
+
+
+            <% if(data[0].Bonded > 0 && data[0].NonBonded > 0 ) {%>
+                <% if (data[0].Country == 'TW') { %> 
+                    <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;">NB/D2</td>
+                <% } else {%>
+                    <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;">G3/D5</td>
+                <% } %>
+                
+            <% } else if (data[0].Bonded > 0 && data[0].NonBonded == 0 ) { %>  
+                <% if (data[0].Country == 'TW') { %> 
+                    <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;">D2</td>
+                <% } else {%>
+                    <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;">D5</td>
+                <% } %>
+                  
+            <% } else if (data[0].Bonded == 0 && data[0].NonBonded > 0 ) { %>  
+                <% if (data[0].Country == 'TW') { %> 
+                    <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;">NB</td>
+                <% } else {%>
+                    <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;">G3</td>
+                <% } %>
+                
+            <% } %>
+            <!--<td style="width: 100%; height: 18px;">G3/D5</td>-->
+            </tr>
+            <tr style="height: 18px;">
+            <td style="width: 100%; height: 18px; font-size: 18px; font-weight: bold;"><%= data[0].ShipTo%></td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            <td style="width: 71.5436%; height: 72px;">
+            <table style="border-collapse: collapse; width: 99.2%; height: 67px;" border="0">
+            <tbody>
+            <tr>
+            <td style="width: 100%; text-align: center; font-size: 12px; font-weight: bold;">CHECK SLIP FOR SHIPPING</td>
+            </tr>
+            <tr>
+            <td style="width: 100%; text-align: center; font-size: 30px; font-weight: bold;">DOWNS</td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            <table style="border-collapse: collapse; width: 99.8613%; height: 60px;" border="2">
+            <tbody>
+            <tr style="height: 27px;">
+            <td style="width: 10.5413%; height: 10px; background-color: #7f8fa6;"><strong>Box No</strong></td>
+            <td style="width: 11.1112%; height: 10px; background-color: #7f8fa6;"><strong>Weight</strong></td>
+            <td style="width: 14.3875%; height: 10px; background-color: #7f8fa6;"><strong>Dimension</strong></td>
+            <td style="width: 7.97723%; height: 10px; background-color: #7f8fa6;"><strong>W/C</strong></td>
+            <td style="width: 7.97723%; height: 10px; background-color: #7f8fa6;"><strong>P/L</strong></td>
+            <td style="width: 9.75783%; height: 10px; background-color: #7f8fa6;"><strong>G3(NB)</strong></td>
+            <td style="width: 15.8476%; background-color: #ffffff; text-align: center; height: 10px;" rowspan="2"><strong>Shipment :</strong></td>
+            <td style="width: 90.3429%; background-color: #ffffff; text-align: center; height: 10px;" rowspan="2"><strong><%= data[0].ShipmentNo%></strong></td>
+            </tr>
+            <tr style="height: 27px;">
+            <td style="width: 10.5413%; height: 10px;"> </td>
+            <td style="width: 11.1112%; height: 10px;"> </td>
+            <td style="width: 14.3875%; height: 10px;"> </td>
+            <td style="width: 7.97723%; height: 10px;"> </td>
+            <td style="width: 7.97723%; height: 10px;"> </td>
+            <td style="width: 9.75783%; height: 10px;"> </td>
+            </tr>
+            <tr style="height: 27px;">
+            <td style="width: 10.5413%; height: 10px;"> </td>
+            <td style="width: 11.1112%; height: 10px;"> </td>
+            <td style="width: 14.3875%; height: 10px;"> </td>
+            <td style="width: 7.97723%; height: 10px;"> </td>
+            <td style="width: 7.97723%; height: 10px;"> </td>
+            <td style="width: 9.75783%; height: 10px;"> </td>
+            <td style="width: 15.8476%; height: 10px; text-align: center;" colspan="2" rowspan="2"><img id="shipment"></img></td>
+            </tr>
+            <tr style="height: 27px;">
+            <td style="width: 10.5413%; height: 10px;"> </td>
+            <td style="width: 11.1112%; height: 10px;"> </td>
+            <td style="width: 14.3875%; height: 10px;"> </td>
+            <td style="width: 7.97723%; height: 10px;"> </td>
+            <td style="width: 7.97723%; height: 10px;"> </td>
+            <td style="width: 9.75783%; height: 10px;"> </td>
+            </tr>
+            </tbody>
+            </table>
+            <hr />
+            <p style="text-align: center;"><strong><span style="text-decoration: underline;">UPS Supply Chain Solutions - DOWNS/ AMJ Direct Ship Inspection Check list</span></strong></p>
+            <table style="border-collapse: collapse; width: 100%; height: 250px;" border="0">
+            <tbody>
+            <tr style="height: 250px;">
+            <td style="width: 55%; height: 250px;">
+            <table style="border-collapse: collapse; width: 99.7118%; height: 25px;" border="0">
+            <tbody>
+                <tr style="height: 27px;">
+                    <td style="width: 19.5442%; height: 27px;"><sub><strong>QA Stamp:</strong></sub></td>
+                    <td style="width: 13.7892%; height: 27px;"> </td>
+                    <td style="width: 31.2503%; height: 27px;"><sub><strong>QA Inspector Name:</strong></sub></td>
+                    <td style="width: 10.7387%; height: 27px;"> </td>
+                    <td style="width: 8.19526%; height: 27px;"><sub><strong>Time:</strong></sub></td>
+                    <td style="width: 18.6924%; height: 27px;"> </td>
+                    </tr>
+            </tbody>
+            </table>
+            <table style="border-collapse: collapse; width: 100%; height: 200px;" border="1">
+                <tbody>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;"> </td>
+                    <td style="width: 46.9366%; height: 10px;"> </td>
+                    <td style="width: 1%; height: 10px;">Yes</td>
+                    <td style="width: 1%; height: 10px;">No</td>
+                    <td style="width: 1%; height: 10px;">Yes</td>
+                    <td style="width: 1%; height: 10px;">No</td>
+                    <td style="width: 1%; height: 10px;">Yes</td>
+                    <td style="width: 1%; height: 10px;">No</td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 3%; height: 10px;">1a)</td>
+                    <td style="width: 46.9366%; height: 10px;">料號及數量與TO及NUIT LABEL相符</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 3%; height: 10px;">1b)</td>
+                    <td style="width: 46.9366%; height: 10px;">序號是否正確 (如果有請填寫SN# )</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 3%; height: 10px;">2)</td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">外觀檢查</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 3%; height: 10px;">2a)</td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">木箱</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 3%; height: 10px;"> </td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">外箱是否破損</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 3%; height: 10px;">2b)</td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">紙箱</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 3%; height: 10px;"> </td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">外箱是否破損</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;">
+                    <p>3)</p>
+                    </td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">供應商Security Seal完好無損(完整無須開箱)</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;">4)</td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">EXP是否在期限內</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;"> </td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">如果有到期日請填寫EXP#</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;">5)</td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">W-parts</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;"> </td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">是否有CofC</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;"> </td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">是否有Vendor資訊</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;"> </td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">是否有手寫料號及異常標籤</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;">6)</td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">Global Purge / PPL</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;"> </td>
+                    <td style="width: 46.9366%; height: 10px;" width="92">Global PPL檢查</td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td style="width: 3%; height: 10px;"> </td>
+                    <td style="width: 46.9366%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                    <td style="width: 2.69991%; height: 10px;"> </td>
+                </tr>
+                <tr style="height: 0px;">
+                    <td style="width: 100%; height: 50px;" colspan="9" rowspan="2">
+                <table style="border-collapse: collapse; width: 100%;" border="1">
+                <tbody>
+                <tr>
+                    <td style="width: 16.6663%; text-align: center;"><strong>包裝(For 國外需簽名):</strong></td>
+                    <td style="width: 16.6663%; text-align: center;"> </td>
+                    <td style="width: 16.6663%; text-align: center;"><strong>Packer:</strong></td>
+                    <td style="width: 16.6663%; text-align: center;"> </td>
+                    <td class="xl70" style="height: 15pt; width: 16.6924%; text-align: center;" width="64" height="20"><strong>Shipper For PGI :</strong></td>
+                    <td style="width: 16.6663%; text-align: center;"> </td>
+                </tr>
+                </tbody>
+                </table>
+            <table style="border-collapse: collapse; width: 100%;" border="1">
+            <tbody>
+            <tr>
+                <td style="width: 100%; font-size: 20px; font-weight: bold;">Packing request: <br /><%= dbData[0].PackingRequest_Set%></td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            </tr>
+            
+            </tbody>
+            </table>
+            </td>
+            <td style="width: 26.6363%; height: 250px;">
+            <table style="border-collapse: collapse; width: 100%; height: 200px;" border="0">
+            <tbody>
+            <tr style="height: 36px;">
+            <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;">Shipping point remark</td>
+            <td style="width: 2%; height: 18px;"></td>
+            </tr>
+            <tr style="height: 18px;">
+            <td style="width: 100%; height: 18px;font-size: 12px ;font-weight: bold;"><%= dbData[0].Shpt_Remark%></td>
+            <td style="width: 2%; height: 18px;"> </td>
+            </tr>
+            <tr style="height: 18px;">
+            <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;">COO 規則</td>
+            <td style="width: 2%; height: 18px;"></td>
+            </tr>
+            <tr style="height: 18px;">
+            <td style="width: 100%; height: 18px; font-size: 15px ;font-weight: bold;"><%= dbData[0].COO_Set%></td>
+            <td style="width: 2%; height: 18px;"> </td>
+            </tr>
+            <tr style="height: 18px;">
+            <td style="width: 100%; height: 18px;">注意</td>
+            <td style="width: 2%; height: 18px;"></td>
+            </tr>
+            <tr style="height: 18px;">
+            <td style="width: 100%; height: 18px; font-size: 15px ;font-weight: bold;"><%= dbData[0].Attention_Set%></td>
+            <td style="width: 2%; height: 18px;"> </td>
+            </tr>
+            <tr style="height: 18px;">
+            <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;">Booking notice</td>
+            <td style="width: 2%; height: 18px;"></td>
+            </tr>
+            <tr style="height: 18px;">
+            <td style="width: 100%; height: 18px; font-size: 15px ;font-weight: bold;"><%= dbData[0].BooingNotice_Set%></td>
+            <td style="width: 2%; height: 18px;"> </td>
+            </tr>
+            <tr style="height: 36px;">
+            <td style="width: 100%; height: 36px; font-size: 15px; font-weight: bold; color: #ffffff; background-color: #000000;" colspan="2" width="194">儲位Type Remark</td>
+            </tr>
+            <tr style="height: 18px;">
+                <% if (data[0].Haz_Check = 1 ) { %>
+                    <td style="width: 100%; height: 18px; font-size: 15px; font-weight: bold; "><span style="width: 100%; height: 36px; font-size: 18px; font-weight: bold; color: #ffffff; background-color: #000000;">REG/UNR: </span> <span style="font-size: 18px ;font-weight: bold;">實貨是否為"Hazmat" Or "MSDS"</span></td>
+                <% } else { %>
+                    <td style="width: 100%; height: 18px;"> </td>
+                <%} %>
+            
+            <td style="width: 2.5%; height: 18px;"> </td>
+            </tr>
+            
+            <tr style="height: 18px;">
+                
+                    <td style="width: 100%; height: 18px;"> </td>
+            
+            <td style="width: 2.5%; height: 18px;"> </td>
+            </tr>
+            <tr style="height: 18px;">
+                <% if (data[0].Haz_Check = 1 ) { %>
+                    <td style="width: 100%; height: 18px; "><span style="font-size: 18px ;font-weight: bold; color: #ffffff; background-color: #000000;"> KITTING :</span><span style="font-size: 18px ;font-weight: bold;">請將貨上CQP文件放置於文件夾中</span></td>
+                <% } else { %>
+                    <td style="width: 100%; height: 18px;"> </td>
+                <%} %>
+            
+            <td style="width: 2.5%; height: 18px;"> </td>
+            </tr>
+            <tr style="height: 18px;">
+            <td style="width: 102.5%; height: 18px;" colspan="2" width="194"><span  style="font-size: 18px ;font-weight: bold; color: #ffffff; background-color: #000000;">HAWB:</span><span style="font-size: 18px ;font-weight: bold;"><%= data[0].M_HAWB%><%= data[0].D_HAWB%></span></td>
+            </tr>
+            <tr>
+            <td style="width: 102.5%; text-align: center;" colspan="2" width="194"><%= dbData[0].Delivery%></td>
+            </tr>
+            <tr>
+            <td colspan="2" width="194" style="text-align: center;"><img id="delivery"></img></td>
+            </tr>
+            <tr>
+            <td colspan="2"> </td>
+            </tr>
+            <tr>
+                <td style="width: 100%;font-size: 20px ; font-weight: bold;" colspan="2"><span style="font-size: 18px ;font-weight: bold; color: #ffffff; background-color: #000000;">Order Start:</span><span><%= dbData[0].Service_Start%></span>  </td>
+            </tr>
+            <tr>
+                <td style="width: 100%; height: 18px;" colspan="2"> </td>
+            </tr>
+            <tr>
+                <td style="width: 100%; font-size: 20px ;font-weight: bold;" colspan="2"><span style="font-size: 18px ;font-weight: bold; color: #ffffff; background-color: #000000;">PGI Before:</span><span><%= dbData[0].Service_End%></span></td>
+            </tr>
+            <tr>
+                <td style="width: 100%; height: 18px;" colspan="2"> </td>
+            </tr>
+            <tr>
+                
+                <td style="width: 100%; font-size: 20px ; font-weight: bold;" colspan="2"><span style="font-size: 18px ;font-weight: bold; color: #ffffff; background-color: #000000;">Fail time:</span><span> <<%= data[0].Service%> Hour </span></td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            <table style="border-collapse: collapse; width: 100%; height: 30px;" border="0">
+            <tbody>
+                <tr style="height: 43px;">
+                    <td style="width: 19.8725%; height: 11px;">Label:</td>
+                    <td style="width: 17.4415%; height: 11px;"> </td>
+                    <td style="width: 10.7409%; height: 11px;"> </td>
+                    <td style="width: 18.454%; height: 11px;"> </td>
+                    <td style="width: 3.11231%; height: 11px;"> </td>
+                    <td style="width: 10.7409%; height: 11px;"> </td>
+                    <td style="width: 12.5%; height: 11px;"> </td>
+                    <td style="width: 12.5%; height: 11px;"> </td>
+                    </tr>
+                    <tr style="height: 43px;">
+                    <td style="width: 19.8725%; height: 10px;">Bonded Admin:</td>
+                    <td style="width: 17.4415%; height: 10px;"> </td>
+                    <td style="width: 10.7409%; height: 10px;">Invoice:</td>
+                    <td style="width: 18.454%; height: 10px;"> </td>
+                    <td style="width: 3.11231%; height: 10px;">Booking:</td>
+                    <td style="width: 10.7409%; height: 10px;"> </td>
+                    <td style="width: 12.5%; height: 10px;"> </td>
+                    <td style="width: 12.5%; height: 10px;"> </td>
+                    </tr>
+            </tbody>
+            </table>
+    </div>
+    <script>
+        let shipments = document.createElement('canvas');
+        let canvas = document.createElement('canvas');
+        let locations = document.createElement('canvas');
+
+        let delivery = document.createElement('canvas');
+        
+       
+        <% if (data[0].D_HAWB == null ) { %> 
+            var input = "<%= data[0].M_HAWB %>"
+        <% }else{ %>
+            var input = "<%=data[0].M_HAWB %>" + "<%= data[0].D_HAWB %>"
+        <% } %>
+
+
+        try{
+            bwipjs.toCanvas(canvas,{
+            bcid:'code128',
+            text:input,
+            scale: 1,
+            height: 10,
+            weight: 100,
+            includetext: true,
+            textalign: 'center',
+            textsize:10
+            
+            });
+            console.log(canvas.toDataURL('image/png'))
+            document.getElementById('tracking').src = canvas.toDataURL('image/png');
+        }catch(e){
+            console.log(e)
+        }
+
+
+        try{
+            bwipjs.toCanvas(shipments,{
+            bcid:'code128',
+            text:'<%=data[0].ShipmentNo%>',
+            scale: 1,
+            height: 10,
+            weight: 100,
+            includetext: false,
+            textalign: 'center',
+            textsize:10
+            
+            });
+            console.log(shipments.toDataURL('image/png'))
+            document.getElementById('shipment').src = shipments.toDataURL('image/png');
+        }catch(e){
+            console.log(e)
+        }
+        
+        try{
+            bwipjs.toCanvas(delivery,{
+            bcid:'code128',
+            text:'<%= dbData[0].Delivery%>',
+            scale: 1,
+            height: 10,
+            weight: 100,
+            includetext: false,
+            textalign: 'center',
+            textsize:10
+            
+            });
+            console.log(delivery.toDataURL('image/png'))
+            document.getElementById('delivery').src = delivery.toDataURL('image/png');
+        }catch(e){
+            console.log(e)
+        }
+
+        try{
+            bwipjs.toCanvas(locations,{
+            bcid:'code128',
+            text:'<%= dbData[0].Location%>',
+            scale: 1,
+            height: 10,
+            weight: 100,
+            includetext: false,
+            textalign: 'center',
+            textsize:10
+            
+            });
+            console.log(locations.toDataURL('image/png'))
+            document.getElementById('location').src = locations.toDataURL('image/png');
+        }catch(e){
+            console.log(e)
+        }
+        
+
+        
+    </script>
+</body>
+</html>

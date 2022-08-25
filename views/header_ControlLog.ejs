@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />-->
+    <title><%= title %></title>
+    
+    <link rel="shortcut icon" href="/img/UPS_logo.png" />
+    
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    
+    
+
+    <!--<script src='http://<%= hostname %>:3000/jquery/jquery.slim.min.js'></script>-->
+    
+    
+    <script src="/functions/popper.min.js"></script>
+    <script type="text/javascript" src="/jquery/dist/jquery.min.js"></script>
+    <!--<script src='http://<%= hostname %>:3000/jquery/jquery.slim.min.js'></script>-->
+    
+    
+    <!--<script src="http://<%= hostname %>:3000/jquery/jquery.min.js"></script>-->
+    
+    <!--<script src="http://<%= hostname %>:3000/bootstrap/js/src/popover.js"></script>-->
+    
+    <script type="text/javascript" src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    
+    <!--<script src="http://<%= hostname %>:3000/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+    <script type="text/javascript" src="/ionicons/dist/ionicons.js"></script>
+    <!--<script src="http://<%= hostname %>:3000/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+    
+    <!--<script src="http://<%= hostname %>:3000/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+    
+    
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><%= title %></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/get/dashboard?function=control_log_downs&queryDate=<%= ImportDate %>&pagesize=100&currentPage=1">54 Downs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/get/dashboard?function=control_log_regular&queryDate=<%= ImportDate %>&pagesize=100&currentPage=1">54 Regular (nTW)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/get/dashboard?function=control_log_regulartw&queryDate=<%= ImportDate %>&pagesize=100&currentPage=1">54 Regular (TW)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/get/dashboard?function=control_log_amt_downs&queryDate=<%= ImportDate %>&pagesize=100&currentPage=1">89 Downs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/get/dashboard?function=control_log_amt&queryDate=<%= ImportDate %>&pagesize=100&currentPage=1">89 Regular</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/get/dashboard?function=not_import_Data&plant=54">Wait Approved(54)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/get/dashboard?function=not_import_Data&plant=89">Wait Approved(89)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Labeling Confirm</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Delivery Confirm</a>
+              </li>
+          </ul>
+          
+        </div>
+      </nav>

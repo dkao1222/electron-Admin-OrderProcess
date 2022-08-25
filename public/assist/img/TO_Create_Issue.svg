@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="200"
+   height="50"
+   viewBox="0 0 52.916666 13.229167"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="TO_Create_Issue.svg">
+  <defs
+     id="defs2">
+    <rect
+       x="1.3229167"
+       y="1.3229167"
+       width="50.270834"
+       height="11.90625"
+       id="rect837" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="126.49304"
+     inkscape:cy="74.47541"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="true"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid833" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       id="text835"
+       style="font-size:10.5833px;line-height:1.25;font-family:Chiller;-inkscape-font-specification:Chiller;white-space:pre;shape-inside:url(#rect837);"
+       transform="matrix(1.7102696,0,0,1,-9.9480344,0)"><tspan
+         style="visibility:hidden"
+         x="1.3222656"
+         y="22.765743"><tspan
+           dx="0 6.4647012 8.2320309 2.9403801 7.6429195 3.5243206 5.8859253 5.8859291 2.9403801 5.8859253 2.9403801 2.3512688 5.2916527 5.2916451 5.8859329"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Arial Unicode MS';-inkscape-font-specification:'Arial Unicode MS'">TO Create issue</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10.5833px;line-height:1.25;font-family:Chiller;-inkscape-font-specification:Chiller;stroke-width:0.264583"
+       x="1.3229166"
+       y="1.3229166"
+       id="text843"><tspan
+         sodipodi:role="line"
+         id="tspan841"
+         x="1.3229166"
+         y="1.3229166"
+         style="stroke-width:0.264583" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10.5833px;line-height:1.25;font-family:Chiller;-inkscape-font-specification:Chiller;stroke-width:0.264583"
+       x="18.520834"
+       y="2.6458333"
+       id="text847"><tspan
+         sodipodi:role="line"
+         id="tspan845"
+         x="18.520834"
+         y="2.6458333"
+         style="stroke-width:0.264583" /></text>
+    <rect
+       style="opacity:0.621212;fill:#0000ff;stroke-width:0.264583"
+       id="rect853"
+       width="52.916664"
+       height="13.229166"
+       x="-1.3229138"
+       y="-1.3229159" />
+    <rect
+       style="opacity:0.993939;fill:#0b0aff;fill-opacity:1;stroke-width:0.264583"
+       id="rect853-0"
+       width="52.916668"
+       height="13.229166"
+       x="1.3229158"
+       y="1.3229166" />
+    <text
+       xml:space="preserve"
+       style="font-size:10.1081px;line-height:1.25;font-family:Chiller;-inkscape-font-specification:Chiller;fill:#ffffff;stroke-width:0.252703"
+       x="1.2144783"
+       y="8.0249128"
+       id="text851"
+       transform="scale(0.68609805,1.4575176)"><tspan
+         sodipodi:role="line"
+         id="tspan849"
+         x="1.2144783"
+         y="8.0249128"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;stroke-width:0.252703">TO Create Issue</tspan></text>
+  </g>
+</svg>

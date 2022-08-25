@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILC Report</title>
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <table class="table table-bordered border-dark">
+        <thead class="table-dark">
+            <tr>
+                <td class="col">Time</td>
+                <td class="col">S#</td>
+                <td class="col">Shpt</td>
+                <td class="col">HAWB NO</td>
+                <td class="col">報單類別</td>
+                <td class="col">DP</td>
+                <td class="col">Delivery</td>
+                <td class="col">Shipment</td>
+                <td class="col">Country</td>
+                <td class="col">Ship To</td>
+                <td class="col">Tracking</td>
+                <td class="col">ETA</td>
+                <td class="col">TT</td>
+            </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i < data.length; i++) { %>
+            <tr>
+              <td>
+                <%= data[i]['ShipmentCreateDateTime'] %>
+              </td>
+              <td>
+                <%= data[i]['logNum'] %>
+              </td>
+              <td>
+                <%= data[i]['Shpt'] %>
+              </td>
+              <td>
+                <%= data[i]['HAWB_NO'] %>
+              </td>
+              <td>
+                <%= data[i]['5105a'] %>
+              </td>
+              <td>
+                <%= data[i]['Delivery'] %>
+              </td>
+              <td>
+                <%= data[i]['ShipmentNo'] %>
+              </td>
+              <td>
+                <%= data[i]['Country'] %>
+              </td>
+              <td>
+                <%= data[i]['ShipTo'] %>
+              </td>
+              <td>
+                
+              </td>
+              <td>
+                <%= data[i]['R_PickupTime'] %>
+              </td>
+              <td>
+                
+              </td>
+            </tr>
+            <% } %>
+        </tbody>
+</body>
+
+</html>

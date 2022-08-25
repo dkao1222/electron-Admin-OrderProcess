@@ -34,7 +34,7 @@ builder.build({
             "output": "build/win"
         },
         "win": {
-            "icon": path.resolve(__dirname, '../public/assist/img/ups_shield.ico'),
+            "icon": path.resolve(__dirname, './public/assist/img/UPS_logo256256.png'),
         }
         
         

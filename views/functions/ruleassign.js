@@ -1,7 +1,8 @@
 
 
 var getHost = function(){
-    
+    //setCountry()
+
     $.ajax({
         method:'GET',
         url:'http://127.0.0.1:3010/get/query/?table=hostnameConfig'
@@ -11,11 +12,11 @@ var getHost = function(){
         response.forEach(function(row){
             //row.hostname
             //host.push(row.hostname)
-            setCountry(row.hostname)
-            setCondition(row.hostname)
-            setShipPoint(row.hostname)
-            setShipToCode(row.hostname)
-            setForward(row.hostname)
+            setCountry(row.address)
+            setCondition(row.address)
+            setShipPoint(row.address)
+            setShipToCode(row.address)
+            setForward(row.address)
 
         })
 
@@ -25,6 +26,7 @@ var getHost = function(){
     })
     
     
+    
 }
 
 
@@ -32,19 +34,22 @@ var getHost = function(){
 
 var setCountry = function (hostname) {
 
-
+    
 
     console.log('host:' +hostname)
 
     $.ajax({
         method: 'GET',
-        url: 'http://' + hostname + ':3000/get/query?table=HAWB_Country'
+        url: 'http://' + hostname +':3000/get/query?table=HAWB_Country',
+        //type:'GET'
 
     }).then(function (response) {
+        //console.log('Country:'+ response)
         var $country = $('#country')
         $country.append(`<option value="null"> -- </option>`)
-        const arr = JSON.parse(response)
-        arr.forEach(function (row) {
+        //const arr = JSON.parse(response)
+        
+        response.forEach(function (row) {
             //console.log(row.Country)
             var $countryItem = `<option value="${row.Country}">${row.Country}</option>`
             //console.log($countryItem)
@@ -62,7 +67,7 @@ var setCondition = function (hostname) {
 
     $.ajax({
         method: 'GET',
-        url: 'http://'+hostname+':3000/get/query?table=HAWB_ShptCondition'
+        url: 'http://' + hostname +':3000/get/query?table=HAWB_ShptCondition'
 
     }).then(function (response) {
         var $country = $('#condition')
@@ -84,7 +89,7 @@ var setShipPoint = function (hostname) {
 
     $.ajax({
         method: 'GET',
-        url: 'http://'+hostname+':3000/get/query?table=HAWB_ShptPoint'
+        url: 'http://' + hostname +':3000/get/query?table=HAWB_ShptPoint'
 
     }).then(function (response) {
         var $country = $('#Point')
@@ -106,7 +111,7 @@ var setShipToCode = function (hostname) {
 
     $.ajax({
         method: 'GET',
-        url: 'http://'+hostname+':3000/get/query?table=HAWB_ShipTo'
+        url: 'http://' + hostname +':3000/get/query?table=HAWB_ShipTo'
 
     }).then(function (response) {
         var $country = $('#ShipTo')
@@ -128,7 +133,7 @@ var setForward = function (hostname) {
 
     $.ajax({
         method: 'GET',
-        url: 'http://'+hostname+':3000/get/query?table=HAWB_Vendor'
+        url: 'http://' + hostname +':3000/get/query?table=HAWB_Vendor'
 
     }).then(function (response) {
         var $country = $('#Forward')
@@ -145,7 +150,7 @@ var setForward = function (hostname) {
     })
 }
 
-getHost()
+
 
 
 
@@ -209,7 +214,7 @@ var submitBtn = function() {
                 'insert into HAWB_Rule'
                 $.ajax({
                     method:'POST',
-                    url:`http://${row.hostname}:3000/post/set/rule?country=${country}&condition=${condition}&shpt=${Point}&shipto=${ShipTo}&forward=${forward}&mon=${mon}&tue=${tue}&wed=${wed}&thu=${thu}&fri=${fri}&sat=${sat}&sun=${sun}`
+                    url:`/post/set/rule?country=${country}&condition=${condition}&shpt=${Point}&shipto=${ShipTo}&forward=${forward}&mon=${mon}&tue=${tue}&wed=${wed}&thu=${thu}&fri=${fri}&sat=${sat}&sun=${sun}`
                 }).then(function(response){
                     response.forEach(function(row){
                         console.log(row)
@@ -229,3 +234,5 @@ var submitBtn = function() {
         console.log('Country is '+ mon)
     }
 }
+
+getHost()

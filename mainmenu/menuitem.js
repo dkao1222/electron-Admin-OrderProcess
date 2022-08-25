@@ -1,14 +1,15 @@
-const { Menu, BrowserWindow, BrowserView } = require('electron')
+const { Menu, BrowserWindow, BrowserView, dialog } = require('electron')
+const mainwindow_controllog = require('../mainmenu/mainwindow_controllog')
+
 var os = require('os');
 const host = os.hostname();
 const fs = require('fs')
 const path = require('path');
 
+
 const { spawn, exec, spawnSync, execSync } = require('child_process');
-const { rejects } = require('assert');
-const { resolve } = require('path');
 const { all_dowload } = require('../source/locl_importData')
-//const sqlite3 = require('sqlite3').verbose()
+const sqlite3 = require('sqlite3').verbose()
 
 const templateMenu = [
     {
@@ -20,10 +21,11 @@ const templateMenu = [
                     {
                         label: "ALL",
                         click: async () => {
-
-                            
+                            //let startTime, endTime;
+                            //startTime = performance.now();
                             all_dowload();
-
+                            //endTime = performance.now();
+                            //console.debug('Data Download All Elapsed time:', (endTime - startTime));
                         }
 
                     }
@@ -51,12 +53,12 @@ const templateMenu = [
                                 })
                                 .on('close', () => {
                                     console.log('script closed')
-                                    resolve()
+                                    resolve('script closed')
 
                                 })
                                 .on('error', () => {
                                     console.log('error running vbs')
-                                    reject()
+                                    reject('error running vbs')
 
                                 })
                         })
@@ -199,8 +201,13 @@ const templateMenu = [
                     const Dates = new Date()
                     var years = Dates.getFullYear();
                     var mons = (Dates.getMonth() + 1).toString().length > 1 ? (Dates.getMonth() + 1) : "0" + (Dates.getMonth() + 1)
-
-                    await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_downs&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    try{
+                        await shell.openExternal(`microsoft-edge:http://${host}:3000/get/dashboard?function=control_log_downs&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    } catch (err) {
+                        console.log(err)
+                        await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_downs&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    }
+                    
                 }
             },
             {
@@ -210,8 +217,13 @@ const templateMenu = [
                     const Dates = new Date()
                     var years = Dates.getFullYear();
                     var mons = (Dates.getMonth() + 1).toString().length > 1 ? (Dates.getMonth() + 1) : "0" + (Dates.getMonth() + 1)
-
-                    await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_regular&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    try{
+                        await shell.openExternal(`microsoft-edge:http://${host}:3000/get/dashboard?function=control_log_regular&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    } catch (err) {
+                        console.log(err)
+                        await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_regular&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    }
+                    
                 }
             },
             {
@@ -221,8 +233,13 @@ const templateMenu = [
                     const Dates = new Date()
                     var years = Dates.getFullYear();
                     var mons = (Dates.getMonth() + 1).toString().length > 1 ? (Dates.getMonth() + 1) : "0" + (Dates.getMonth() + 1)
-
-                    await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_regulartw&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    try{
+                        await shell.openExternal(`microsoft-edge:http://${host}:3000/get/dashboard?function=control_log_regulartw&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    } catch (err) {
+                        console.log(err)
+                        await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_regulartw&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    }
+                    
                 }
             },
             {
@@ -232,8 +249,13 @@ const templateMenu = [
                     const Dates = new Date()
                     var years = Dates.getFullYear();
                     var mons = (Dates.getMonth() + 1).toString().length > 1 ? (Dates.getMonth() + 1) : "0" + (Dates.getMonth() + 1)
-
-                    await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_amt&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    try{
+                        await shell.openExternal(`microsoft-edge:http://${host}:3000/get/dashboard?function=control_log_amt&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    } catch (err) {
+                        console.log(err)
+                        await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_amt&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    }
+                    
                 }
             },
             {
@@ -243,15 +265,26 @@ const templateMenu = [
                     const Dates = new Date()
                     var years = Dates.getFullYear();
                     var mons = (Dates.getMonth() + 1).toString().length > 1 ? (Dates.getMonth() + 1) : "0" + (Dates.getMonth() + 1)
-
-                    await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_amt_downs&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    try{
+                        await shell.openExternal(`microsoft-edge:http://${host}:3000/get/dashboard?function=control_log_amt_downs&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    } catch (err) {
+                        console.log(err)
+                        await shell.openExternal(`http://${host}:3000/get/dashboard?function=control_log_amt_downs&queryDate=${years + '-' + mons}&pagesize=100&currentPage=1`)
+                    }
+                    
                 }
             },
             {
                 label: "ZAVGR043_Temp",
                 click: async () => {
                     const { shell } = require('electron')
-                    await shell.openExternal('http://' + host + ':3000/get/dashboard/?function=temp_history')
+                    try{
+                        await shell.openExternal('microsoft-edge:http://' + host + ':3000/get/dashboard/?function=temp_history')
+                    } catch (err) {
+                        console.log(err)
+                        await shell.openExternal('http://' + host + ':3000/get/dashboard/?function=temp_history')
+                    }
+                    
                 }
             }
         ]
@@ -259,6 +292,22 @@ const templateMenu = [
     {
         label: "Option",
         submenu: [
+            {
+                label: "Shipping Dashboard (Non Completed)",
+                click: async () => {
+                    const { shell } = require('electron')
+                    const Dates = new Date()
+                    var years = Dates.getFullYear();
+                    var mons = (Dates.getMonth() + 1).toString().length > 1 ? (Dates.getMonth() + 1) : "0" + (Dates.getMonth() + 1)
+                    try{
+                        await shell.openExternal(`microsoft-edge:http://${host}:3000/get/dashboard?function=dashboard`)
+                    }catch(err) {
+                        console.log(err)
+                        await shell.openExternal(`http://${host}:3000/get/dashboard?function=dashboard`)
+                    }
+                    
+                }
+            },
             {
                 label: "HAWB Assignment Rule",
                 click: () => {
@@ -274,7 +323,7 @@ const templateMenu = [
                     })
 
                     // and load the index.html of the app.
-                    ruleassignWindow.loadFile(path.join(__dirname, '../views/ruleassign.html'))
+                    ruleassignWindow.loadFile(path.resolve(path.join(__dirname, '../views/ruleassign.html')))
 
 
                     //
@@ -284,6 +333,86 @@ const templateMenu = [
                     // Open the DevTools.
                     ruleassignWindow.webContents.openDevTools()
                     ruleassignWindow.removeMenu();
+                }
+            },
+            {
+                label: "Batch Import HAWB(Host only)",
+                click: () => {
+                    
+                    const savedialog =  dialog.showOpenDialog(null,{
+                        //defaultPath: path.resolve(__dirname,'../db/main.db'),
+                        title:'Import HAWB',
+                        message: 'Please find you HAWB file, file type most is .xlsx',
+                        filters: [
+                            {
+                                name:'*',
+                                extensions:['xlsx','xls']
+                            }
+                        ],
+                        multiSelections: false
+
+                    }).then(result => {
+                        if (result.canceled) {
+                            console.log('使用者關閉 SaveDialog')
+                        } else {
+                            let checkExt = path.extname(result.filePaths[0])
+                            console.log(path.extname(result.filePaths[0]))
+                            const Excel = require('exceljs')
+                            let db = new sqlite3.Database(path.resolve(__dirname, '../db/main.db'), sqlite3.OPEN_READWRITE)
+                            var workbook = new Excel.Workbook(); 
+                            workbook.xlsx.readFile(result.filePaths[0])
+                                .then(async function() {
+                                    var worksheet = workbook.getWorksheet();
+                                    //var worksheet = workbook.getWorksheet("Sheet3");
+                                    
+                                    worksheet.eachRow({ includeEmpty: true }, function(row, rowNumber) {
+                                        //console.log( JSON.stringify(row.values))
+                                        console.log(row.values[1] +','+ row.values[2])
+                                        db.serialize(function() {
+                                            db.run(`insert INTO HAWB_Primary (Vendor, HAWB) values ('${row.values[1]}','${row.values[2]}')`, function(err, rows){
+                                                if(err) {
+                                                    console.log(err)
+                                                    dialog.showMessageBox(
+                                                        null,
+                                                        {
+                                                            type: 'warning',
+                                                            title: 'HAWB import error',
+                                                            message: `Duplicate HAWB: ${row.values[1] +' '+ row.values[2] }`
+                                                        }
+                                                    )
+                                                }
+                                            })
+                                            db.exec(`delete from HAWB_Primary where Vendor = 'Vendor' or Vendor like 'Sample%'`)
+                                            db.exec(`Update HAWB_Primary
+                                            set Vendor = t.Vendor
+                                            from (
+                                                select * from HAWB_Import_Check
+                                            ) t
+                                            where HAWB_Primary.Vendor = 'CEVA'
+                                            and substr(HAWB_Primary.HAWB,1,1) = t.Start_With`, function( err, rows) {
+                                                if(err) {
+                                                    console.log(err)
+                                                }
+                                            })
+                                        })
+                                        
+                                    });
+                                    //db.close
+                                    dialog.showMessageBox(
+                                        null,
+                                        {
+                                            type: 'info',
+                                            title: 'HAWB import done',
+                                            message: `HAWB has been import`
+                                        }
+                                    )
+                                });
+                                
+                                
+                            
+                        }
+                    })
+
                 }
             },
             {
@@ -301,7 +430,7 @@ const templateMenu = [
                     })
 
                     // and load the index.html of the app.
-                    ruleassignWindow.loadFile(path.join(__dirname, '../views/serviceassign.html'))
+                    ruleassignWindow.loadFile(path.resolve(path.join(__dirname, '../views/serviceassign.html')))
 
 
                     //
@@ -319,25 +448,126 @@ const templateMenu = [
                     {
                         label: "DB Backup",
                         click: () => {
-                            const { spawn, exec, execFile, spawnSync, execSync, fork } = require('child_process');
-                            const path = require('path')
+                            const savedialog = dialog.showSaveDialog(null,{
+                                defaultPath: path.resolve(__dirname,'../db/main.db'),
+                                title:'DB Main file backup',
+                            }).then(result => {
+                                console.log(result)
+                                if (result.canceled) {
+                                    console.log('使用者關閉 SaveDialog')
+                                } else {
+                                    console.log(result.filePath)
+                                    fs.copyFile(path.resolve(__dirname,'../db/main.db'), result.filePath,(err) => {
+                                        if(err) {
+                                            dialog.showMessageBox(
+                                                null,
+                                                {
+                                                    type: 'warning',
+                                                    title: 'DB Backup',
+                                                    message: 'Failed backup your file, please re-try',
+                                                }
+                                            )
+                                        } else {
+                                            dialog.showMessageBox(
+                                                null,
+                                                {
+                                                    type: 'info',
+                                                    title: 'DB Backup',
+                                                    message: `DB file has been copy to ${result.filePath}`
+                                                }
+                                            )
+                                        }
+                                    })
+                                    
+                                }
 
-                            //const runSq01multi = path.join(__dirname, '../vbs/runSapSQ01MultiValue.vbs')
+                            }) 
 
-                            //const check = spawn('cscript.exe', [runSq01multi])
-                            console.log(path.join(__dirname, '../db/sqlite3 .backup main my_bak'))
-                            const backuppath = path.join(__dirname, '../db/sqlite3')
-                            const check = spawn(backuppath, ['.backup main my_bak'])
+                            //fs.copyFile(path.resolve(__dirname,'/db/main.db'), filename['filePath'])
+                            
+                            /*.then(function(filePath){
+                                console.log(filePath)
+                                fs.copyFile(path.resolve(__dirname,'/db/main.db'), filePath.filePath)
+                            })
+                            */
 
+                            
+                            
                         }
                     },
                     {
                         label: "DB Restore",
+                        click: () => {
+                            const savedialog = dialog.showOpenDialog(null,{
+                                defaultPath: path.resolve(__dirname,'../db/main.db'),
+                                title:'DB Main file restore',
+                                message: 'Please find you backup file, file type most is .DB'
+                            }).then(result => {
+                                console.log(result)
+                                if (result.canceled) {
+                                    console.log('使用者關閉 SaveDialog')
+                                } else {
+                                    console.log(result.filePaths[0])
+                                    let checkExt = path.extname(result.filePaths[0])
+                                    console.log(path.extname(result.filePaths[0]))
+                                    if(checkExt !== '.db') {
+                                        dialog.showMessageBox(
+                                            null,
+                                            {
+                                                type: 'warning',
+                                                title: 'DB Restore',
+                                                message: `Please recheck your restore file`
+                                            }
+                                        )
+                                    } else {
+                                        var db = new sqlite3.Database(path.resolve(__dirname, '../db/main.db'), sqlite3.OPEN_READWRITE)
+                                        
+                                        db.close
+                                        fs.copyFile( result.filePaths[0], path.resolve(__dirname,'../db/main.db'), (err) => {
+                                            if(err) {
+                                                dialog.showMessageBox(
+                                                    null,
+                                                    {
+                                                        type: 'warning',
+                                                        title: 'DB Restore',
+                                                        message: `Faile cover restore file`
+                                                    }
+                                                )
+                                            } else {
+                                                dialog.showMessageBox(
+                                                    null,
+                                                    {
+                                                        type: 'info',
+                                                        title: 'DB Restore',
+                                                        message: `Has been cover the DB file`
+                                                    }
+                                                )
+                                            }
+                                        })
+                                        
+                                    }
+                                    
+                                }
+
+                            }) 
+
+                            
+
+                            
+                            
+                        }
+                        
                     }
                 ]
             },
             {
-                label: "Connect to Server"
+                label: "Connect to Server",
+                click: () => {
+                    const Dates = new Date()
+                    var years = Dates.getFullYear();
+                    var mons = (Dates.getMonth() + 1).toString().length > 1 ? (Dates.getMonth() + 1) : "0" + (Dates.getMonth() + 1)
+                    mainwindow_controllog.control_log(host, years, mons)
+                }
             },
             {
                 label: "Schedule Job",

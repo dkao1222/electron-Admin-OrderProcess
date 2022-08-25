@@ -5,15 +5,16 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
   <title>SmartView</title>
   
   
-  <!--<script src="../node_modules/jquery/dist/jquery.js"></script>-->
+  <script crossorigin src="../node_modules/jquery/dist/jquery.js"></script>
   <!--<script src="../node_modules/jquery/dist/jquery.min.js"></script>-->
   <!--<script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>-->
   <!--<script src="../node_modules/@popperjs/core/dist/umd/popper.min.js"></script>-->
   <!--<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
-  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script crossorigin  src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 
 
@@ -27,11 +28,32 @@
       <div class="col-sl">
         <img src="../public/assist/img/UPS_logo.png" width="100" height="100" class="d-inline-block align-top" alt="">
       </div>
+      
     </div>
+  </div>
+  <div class="container-fluid" >
+    <div class="row">
+      <div class="col">
+        <p>Host Name: <h6 id="hostname"></h6></p>
+        <button id="changeHost">change</button>
+        <!--<button type="button" class="btn btn-default" id="changeHost">change</button>-->
+      </div>
+      <div class="col">
+        <p>Config hostName: <h6 id="myNaame"></h6></p>
+      </div>
+      <div class="col">
+        <p>Server Status: <a id="serverStus"></a></p>
+      </div>
+    </div>
+
+    <button id="createInvoice">Create Invoice</button>
   </div>
 
   
+ 
+  
   <script src="../render/render.js"></script>
+  
   
 </body>
 

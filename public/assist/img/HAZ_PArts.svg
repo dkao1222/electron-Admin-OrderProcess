@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="96"
+   height="96"
+   viewBox="0 0 25.399999 25.400001"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="HAZ_PArts.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="6.8541667"
+     inkscape:cx="26.93467"
+     inkscape:cy="39.559117"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="true"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid10" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#b3b3b3;fill-rule:evenodd;stroke-width:0.264583"
+       id="path16"
+       sodipodi:type="arc"
+       sodipodi:cx="12.567708"
+       sodipodi:cy="12.567708"
+       sodipodi:rx="12.567708"
+       sodipodi:ry="12.567708"
+       sodipodi:start="0"
+       sodipodi:end="6.2769545"
+       sodipodi:arc-type="slice"
+       d="M 25.135416,12.567708 A 12.567708,12.567708 0 0 1 12.587285,25.135401 12.567708,12.567708 0 0 1 6.0989401e-5,12.606861 12.567708,12.567708 0 0 1 12.508978,1.3722601e-4 12.567708,12.567708 0 0 1 25.135172,12.489402 l -12.567464,0.07831 z" />
+    <path
+       style="fill:#ffffff;stroke-width:0.264583"
+       id="path35"
+       sodipodi:type="arc"
+       sodipodi:cx="12.567708"
+       sodipodi:cy="12.567708"
+       sodipodi:rx="11.244792"
+       sodipodi:ry="11.244792"
+       sodipodi:start="0"
+       sodipodi:end="6.2769545"
+       sodipodi:arc-type="slice"
+       d="M 23.8125,12.567708 A 11.244792,11.244792 0 0 1 12.585224,23.812486 11.244792,11.244792 0 0 1 1.3229706,12.60274 11.244792,11.244792 0 0 1 12.51516,1.3230388 11.244792,11.244792 0 0 1 23.812282,12.497644 l -11.244574,0.07006 z" />
+    <text
+       xml:space="preserve"
+       style="font-size:18.7148px;line-height:1.25;font-family:Broadway;-inkscape-font-specification:Broadway;fill:#f30000;fill-opacity:1;stroke-width:0.467874"
+       x="2.2756629"
+       y="13.702708"
+       id="text909"
+       transform="matrix(0.58276912,0,-0.11283994,1.7159454,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan907"
+         x="2.2756629"
+         y="13.702708"
+         style="fill:#f30000;fill-opacity:1;stroke-width:0.467874">HAZ</tspan></text>
+  </g>
+</svg>

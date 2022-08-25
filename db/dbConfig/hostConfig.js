@@ -40,4 +40,24 @@ const hostSet = function (status, desc) {
     //db.close()
 }
 
-module.exports = {hostGet, hostSet} 
+const hostUpdate = function (hostname) {
+    const os = require('os')
+
+    return new Promise(function (resolve, reject) {
+        let query = `update hostnameConfig set hostname = '${hostname.toLowerCase()}'`
+        console.log(query)
+        db.serialize(function () {
+            db.run(query, function (err, rows) {
+                
+                if(!err) {
+                    resolve(rows)
+                } else {
+                    reject(err)
+                }
+            })
+        })
+    })
+    //db.close()
+}
+
+module.exports = {hostGet, hostSet, hostUpdate} 

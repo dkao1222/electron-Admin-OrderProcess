@@ -1,4 +1,5 @@
-
+' WScript.Arguments(0) sap child
+' WScript.Arguments(1) shipment
 
 If Not IsObject(application) Then
     Set SapGuiAuto  = GetObject("SAPGUI")

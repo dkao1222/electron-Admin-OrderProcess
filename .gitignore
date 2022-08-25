@@ -1,2 +1,6 @@
-node_modules
+node_modules/
+build/
+*.xls
+*.xlsx
+*.txt
 .DS_Store

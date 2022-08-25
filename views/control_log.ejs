@@ -1,45 +1,72 @@
-<%- include('./header.ejs', {title: title}); %>
+<%- include('./header_ControlLog.ejs', {title: title, ImportDate: ImportDate}); %>
 
   <% if (data.length==0 ) { %>
     <script
       language="javascript"> location.replace("/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=1")</script>
     <% } %>
 
-      <h1>
+      <!--<h1>
         <%= menuTitle %>
-      </h1>
-
+      </h1>-->
+      
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          
-          <% if (Number(paggingData['currentPage']) == 1) { %> 
-            <li class="page-item disabled"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a></li>
-          <% } else { %>
-          <li class="page-item"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a></li>
-          <% } %>
-          
-          
-          <% for(var i=1; i <= paggingData['pagePadding']; i++) { %>
-            <% if (i==paggingData['currentPage'] ) { %>
-              <li class="page-item disabled"><a class="page-link"
-                  href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
-                  <%= i %>
-                </a></li>
-              <% } else { %>
-                <li class="page-item"><a class="page-link"
-                    href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
-                    <%= i %>
-                  </a></li>
-                <% } %>
-                  <% } %>
-          <% if ( Number(paggingData['pagePadding']) == Number(paggingData['currentPage']) ) { %>
-          <li class="page-item disabled"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a></li>
+
+          <% if (Number(paggingData['currentPage'])==1) { %>
+            <li class="page-item disabled"><a class="page-link"
+                href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a>
+            </li>
             <% } else { %>
-              <li class="page-item "><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a></li>
-          <% } %>
+              <li class="page-item"><a class="page-link"
+                  href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a>
+              </li>
+              <% } %>
+
+
+                <% for(var i=1; i <=paggingData['pagePadding']; i++) { %>
+                  <% if (i==paggingData['currentPage'] ) { %>
+                    <li class="page-item disabled"><a class="page-link"
+                        href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
+                        <%= i %>
+                      </a></li>
+                    <% } else { %>
+                      <li class="page-item"><a class="page-link"
+                          href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
+                          <%= i %>
+                        </a></li>
+                      <% } %>
+                        <% } %>
+                          <% if ( Number(paggingData['pagePadding'])==Number(paggingData['currentPage']) ) { %>
+                            <li class="page-item disabled"><a class="page-link"
+                                href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a>
+                            </li>
+                            <% } else { %>
+                              <li class="page-item "><a class="page-link"
+                                  href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a>
+                              </li>
+                              <% } %>
+                                <button type="button" class="btn btn-default"
+                                  onclick="callBatchJobMethod(`<%= checkListFunction %>`)"><ion-icon name="print-outline"></ion-icon>Batch Print</button>
+                              <% if (checkListFunction == 'control_log_downs' || checkListFunction == 'control_log_regular' ) {%> 
+                                <button type="button" class="btn btn-default"
+                                onclick="window.open(`/get/deliveryInform?function=cuttime_report_Entry&controllog=<%= checkListFunction %>`,width=1024,height=768,resizable=1)"><ion-icon name="cloud-download-outline"></ion-icon>T1</button>
+                               
+                                <button type="button" class="btn btn-default"
+                                onclick="window.open(`/get/deliveryInform?function=ETA_Report&controllog=<%= checkListFunction %>`,width=800,height=600,resizable=1)"><ion-icon name="send-outline"></ion-icon>提貨通知</button>
+                                
+                              <% } %>
+                              <button type="button" class="btn btn-default" 
+                                onclick="window.open(`/get/deliveryInform?function=invoice_report_Entry`,width=1024,height=768,resizable=1)"" id="createInvoice"><ion-icon style="width:50px; height:20px" src="/img/Invoice.svg"></ion-icon></button>
+                                <button type="button" class="btn btn-default" 
+                                onclick=""><ion-icon style="width:50px; height:20px" src="/img/PGI.svg"></ion-icon></button>
+                                <input type="text" id="searchValue">
+                                <button type="button" class="btn btn-primary" 
+                                onclick="searchMethod()">Search</button>
+                                <!-- Search form -->
+                                
         </ul>
       </nav>
-
+    
       <table class="table table-bordered border-dark">
         <thead class="table-dark">
 
@@ -76,315 +103,530 @@
 
               <td>
                 <table>
-                  <th >
-                    <td>
-                      <%= data[i]['ImportDate'] %>
-                    </td>
-                  </th>
-                  <tbody>
-                    <tr>
-                      <% if ( data[i]['OvrPickingStus'] == null ) { %>
-                        <td><ion-icon style="color: #c0392b;" size="large" name="close-outline"></ion-icon></td>
-                      <% } else { %>
-                      <% if (data[i]['Print_Act_Flg']==0) { %>
-                        <td><ion-icon style="color: red; " name="flag"></ion-icon></td>
-                        <% } else { %>
-                          <td><ion-icon style="color: #2ecc71; " name="flag"></ion-icon></td>
-                          
-                          <% }%>
-                        <% } %>
-                          <td>
-                            <button type="button" class="btn btn-default"
-                            onclick="">
-                            <ion-icon name="print-outline"></ion-icon>
-                            
-                          </td>
-                    </tr>
-                  </tbody>
-                 
-                    
-                </table>
-                
-                  
-              </td>
-
-              <td>
-                <table>
-                  <th >
-                    <tr>
-                      <td style="font-weight: bold;"><%= data[i]['logNum'] %></td>
-                    </tr>
-                    
-                  </th>
-                  <tbody>
-                    <tr>
-                      <td>
-                    
-                        <% if (data[i]['CN_Ctrl_Parts']==1) { %>
-                          <td>
-                            <ion-icon style="width:25px; height:25px" src="/img/china_flag.svg"></ion-icon>
-                          </td>
-                         
-                          <% } %>
-                    </td>
-                    <td>
-                      
-                      <% if (data[i]['Service']===2 ) { %>
-                        <table>
-                          <td><ion-icon name="flame" style="color: #c0392b;"></ion-icon></td>
-                          <td><ion-icon name="flame" style="color: #c0392b;"></ion-icon></td>
-                          <td><ion-icon name="flame" style="color: #c0392b;"></ion-icon></td>
-                        </table>
-                        
-                        
-                        <% } %>
-                    </td>
-
-                    </tr>
-                  </tbody>
-                  
-                </table>
-
-
-              </td>
-              <td>
-                <%= data[i]['Shpt'] %>
-              </td>
-              <td>
-                <%= data[i]['DP'] %>
-              </td>
-              <td>
-                <%= data[i]['SHPCondition'] %>
-              </td>
-              <td>
-                <%= data[i]['Country'] %>
-              </td>
-              <td>
-                <%= data[i]['Ordes'] %>
-              </td>
-              <td>
-                <%= data[i]['StorageLocation'] %>
-              </td>
-              <td>
-                <%= data[i]['ShipTo'] %>
-              </td>
-              <td>
-                <table>
-
                   <th>
-                  <td id="<%= data[i]['ShipmentNo'] %>" style="font-weight: bold ; " class="text-wrap">
-                    <%= data[i]['ShipmentNo'] %>
+                  <td>
+                    <%= data[i]['ImportDate'] %>
                   </td>
                   </th>
-
-
                   <tbody>
                     <tr>
-                      <td>
-                        <button type="button" class="btn btn-default"
-                          onclick="window.location.href=`/get/dashboard?function=getShipmentChild&shipmentNo=<%= data[i]['ShipmentNo'] %>`">
-                          <ion-icon name="list-outline"></ion-icon>
-                        </button>
-                      </td>
-                      <td>
-                        <button type="button" class="btn btn-default"
-                          onclick="confirmation(`<%= data[i]['ShipmentNo']%>`)">
-                          <ion-icon style="color: #c0392b;" name="trash-bin"></ion-icon>
-                        </button>
-
-                      </td>
-                      
-
-                    </tr>
-                  </tbody>
-                </table>
-
-                <!--<div class="col"><button class="btn btn-secondary btn-sm">Detail</button></div>-->
-              </td>
-              <td>
-                <%= data[i]['ShipmentCreateDateTime'] %>
-              </td>
-              <% if (data[i]['OvrPickingStus']==='C' ) { %>
-                <td style="background-color: #2ecc71;">
-                  <%= data[i]['OvrPickingStus'] %>
-                </td>
-                <% } else { %>
-                  <td style="background-color: #c0392b">
-                    <%= data[i]['OvrPickingStus'] %>
-                  </td>
-                  <% } %>
-                    <% if (data[i]['OvrWMStus']==='C' ) { %>
-                      <td style="background-color: #2ecc71;">
-                        <%= data[i]['OvrWMStus'] %>
-                      </td>
-                      <% } else { %>
-                        <td style="background-color: #c0392b">
-                          <%= data[i]['OvrWMStus'] %>
+                      <% if ( data[i]['OvrPickingStus']==null ) { %>
+                        <td>
+                          <ion-icon style="color: #c0392b;" size="large" name="close-outline"></ion-icon>
                         </td>
-                        <% } %>
-                          <% if (data[i]['OvrGMStus']==='C' ) { %>
-                            <td style="background-color: #2ecc71;">
-                              <%= data[i]['OvrGMStus'] %>
+                        <% } else { %>
+                          <% if (data[i]['Print_Act_Flg']==0) { %>
+                            <td>
+                              <ion-icon style="color: red; " name="flag" ></ion-icon>
                             </td>
                             <% } else { %>
-                              <td style="background-color: #c0392b">
-                                <%= data[i]['OvrGMStus'] %>
+                              <td>
+                                <ion-icon style="color: #2ecc71; " name="flag"></ion-icon>
                               </td>
-                              <% } %>
-                                <td>
-                                  <%= data[i]['Service'] %>
-                                </td>
-                                <td>
-                                  <%= data[i]['Bonded'] %>
-                                </td>
-                                <td>
-                                  <%= data[i]['NonBonded'] %>
-                                </td>
-                                <td>
-                                  <%= data[i]['TotalItem'] %>
-                                </td>
-                                <% if (data[i]['Vendor'] !==null ) { %>
+
+                              <% }%>
+                                <% } %>
                                   <td>
-                                    <table>
-                                      <tr>
-                                        <td>
-                                          <%= data[i]['Vendor'] %>
-                                        </td>
-                                        <td>
-                                          <button type="button" class="btn btn-default"
-                                            onclick="window.location.href=`/get/hawbInformation?function=vendor&shipmentNo=<%= data[i]['ShipmentNo'] %>`">
-                                            <ion-icon size="large" name="airplane-outline"></ion-icon>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </table>
+                                    <% if (checkListFunction=='control_log_downs' ) { %>
+                                      <button type="button" class="btn btn-default"
+                                        onclick="window.location.href=`/get/deliveryInform?function=downs_check_list&shipmentNo=<%= data[i]['ShipmentNo'] %>`">
+                                        <ion-icon name="print-outline"></ion-icon>
+                                        <% } %>
+
+
                                   </td>
-                                  <% } else { %>
-                                    <td>
-                                      <%= data[i]['Vendor'] %>
-                                    </td>
-                                    <% } %>
+                    </tr>
+                  </tbody>
 
 
+                </table>
 
-                                      <td>
 
-                                        <table>
-                                          <tr>
-                                            <td>
-                                              <%= data[i]['M_HAWB'] %>
-                                            </td>
-                                            <td>
-                                              <% if (data[i]['Vendor'] !==null ) { %>
-                                                <button type="button" class="btn btn-default"
-                                                  onclick="window.location.href=`/get/hawbInformation?function=<%= data[i]['Vendor'] %>&shipmentNo=<%= data[i]['ShipmentNo']%>`">
-                                                  <ion-icon size="large" name="receipt-outline"></ion-icon>
-                                                </button>
-                                                <% } %>
+              </td>
 
-                                            </td>
-                                          </tr>
-                                        </table>
-                                      </td>
-                                      <td>
-                                        <%= data[i]['D_HAWB'] %>
-                                      </td>
-                                      <td>
-                                        <%= data[i]['R_CutTime'] %>
-                                      </td>
-                                      <td>
-                                        <%= data[i]['R_PickupTime'] %>
-                                      </td>
-                                      <td style="font-weight: bold;">
-                                        <%= data[i]['pkg_description'] %>
-                                      </td>
+              <td>
+                <table>
+                  <th>
+                    <tr>
+                      <td style="font-weight: bold;">
+                        <%= data[i]['logNum'] %>
+                      </td>
+                    </tr>
+
+                  </th>
+                  <tbody>
+                    <tr>
+                      <td>
+
+                        <% if (data[i]['CN_Ctrl_Parts']==1) { %>
+                      <td>
+                        <ion-icon style="width:25px; height:25px" src="/img/china_flag.svg"></ion-icon>
+                      </td>
+
+                      <% } %>
+                      <% if (data[i]['W_Parts_Control']==1) { %>
+                        <td>
+                          <ion-icon style="width:25px; height:25px" src="/img/W_Parts.svg"></ion-icon>
+                        </td>
+  
+                      <% } %>
+                      <% if (data[i]['UNR_Control']==1) { %>
+                        <td>
+                          <ion-icon style="width:25px; height:25px" src="/img/UNR_REG_Parts.svg"></ion-icon>
+                        </td>
+  
+                      <% } %>
+                      <% if (data[i]['HAZ_Control']==1) { %>
+                        <td>
+                          <ion-icon style="width:25px; height:25px" src="/img/HAZ_PArts.svg"></ion-icon>
+                        </td>
+  
+                      <% } %>
+              </td>
+              <td>
+
+                <% if (data[i]['Service']===2 ) { %>
+                  <table>
+                    <td>
+                      <ion-icon name="flame" style="color: #c0392b;"></ion-icon>
+                    </td>
+                    <td>
+                      <ion-icon name="flame" style="color: #c0392b;"></ion-icon>
+                    </td>
+                    <td>
+                      <ion-icon name="flame" style="color: #c0392b;"></ion-icon>
+                    </td>
+                  </table>
+
+
+                  <% } %>
+              </td>
 
             </tr>
-            <% } %>
         </tbody>
+
       </table>
 
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
 
-          <% if (Number(paggingData['currentPage']) == 1) { %> 
-            <li class="page-item disabled"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a></li>
-          <% } else { %>
-          <li class="page-item"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a></li>
+      </td>
+      <td>
+        <%= data[i]['Shpt'] %>
+      </td>
+      <td>
+        <%= data[i]['DP'] %>
+      </td>
+      <td>
+        <%= data[i]['SHPCondition'] %>
+      </td>
+      <td>
+        <%= data[i]['Country'] %>
+      </td>
+      <td>
+        <%= data[i]['Ordes'] %>
+      </td>
+      <td>
+        <%= data[i]['StorageLocation'] %>
+      </td>
+      <td>
+        <%= data[i]['ShipTo'] %>
+      </td>
+      <td>
+        <table>
+
+          <th>
+          <td id="<%= data[i]['ShipmentNo'] %>" style="font-weight: bold ; " class="text-wrap">
+            <%= data[i]['ShipmentNo'] %>
+          </td>
+          </th>
+
+
+          <tbody>
+            <tr>
+              <td>
+                <button type="button" class="btn btn-default"
+                  onclick="window.location.href=`/get/dashboard?function=getShipmentChild&shipmentNo=<%= data[i]['ShipmentNo'] %>`">
+                  <ion-icon name="list-outline"></ion-icon>
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-default" onclick="confirmation(`<%= data[i]['ShipmentNo']%>`)">
+                  <ion-icon style="color: #c0392b;" name="trash-bin"></ion-icon>
+                </button>
+
+              </td>
+              <td>
+                <button type="button" class="btn btn-default" onclick="updateComment(`<%= data[i]['ShipmentNo']%>`)">
+                  <ion-icon name="pricetags-outline"></ion-icon>
+                </button>
+
+              </td>
+
+
+            </tr>
+          </tbody>
+        </table>
+
+        <!--<div class="col"><button class="btn btn-secondary btn-sm">Detail</button></div>-->
+      </td>
+      <td>
+        <%= data[i]['ShipmentCreateDateTime'] %>
+      </td>
+      <% if (data[i]['OvrPickingStus']==='C' ) { %>
+        <td style="background-color: #2ecc71;">
+          <%= data[i]['OvrPickingStus'] %>
+        </td>
+        <% } else { %>
+          <td style="background-color: #c0392b">
+            <%= data[i]['OvrPickingStus'] %>
+          </td>
           <% } %>
-          <% for(var i=1; i <=paggingData['pagePadding']; i++) { %>
-            <% if (i==paggingData['currentPage'] ) { %>
-              <li class="page-item disabled"><a class="page-link"
-                  href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
-                  <%= i %>
-                </a></li>
+            <% if (data[i]['OvrWMStus']==='C' ) { %>
+              <td style="background-color: #2ecc71;">
+                <%= data[i]['OvrWMStus'] %>
+              </td>
               <% } else { %>
-                <li class="page-item"><a class="page-link"
-                    href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
-                    <%= i %>
-                  </a></li>
+                <td style="background-color: #c0392b">
+                  <%= data[i]['OvrWMStus'] %>
+                </td>
                 <% } %>
-                  <% } %>
-          <% if ( Number(paggingData['pagePadding']) == Number(paggingData['currentPage']) ) { %>
-          <li class="page-item disabled"><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a></li>
-            <% } else { %>
-              <li class="page-item "><a class="page-link" href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a></li>
-          <% } %>
-        </ul>
-      </nav>
-
-
-      <script>
-
-        window.addEventListener("pageshow", function (event) {
-          var historyTraversal = event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2);
-          if (historyTraversal) {
-            // Handle page restore.
-            //alert('refresh');
-            window.location.reload();
-          }
-        });
-
-
-
-
-
-        var confirmation = function (shipment) {
-
-          
-
-          var answer = confirm('Delete Shipment: ' + shipment + " ??")
-          
-          if (answer) {
-            var promption = prompt('Please enter you description')
-            if (promption.length > 0 ) {
-              alert("Start Delete shipment: " + shipment + ". from Control log")
-              $.ajax({
-                url: `/post/InformationSet?function=deletShipment&shipmentNo=${shipment}&pkgDescription=${promption}`,
-                type: 'POST',
-                success: function (response) {
-                  alert(response);
-                  window.location.reload();
-                },
-                error: function (e) {
-                  alert('Error: ' + e);
-                }
-              });
-            } else {
-              alert('you have not entry description')
-            }
-            
-          }
-          else {
-            alert("if you want delete, please re-click")
-          }
-        };
-
-        
+                  <% if (data[i]['OvrGMStus']==='C' ) { %>
+                    <td style="background-color: #2ecc71;">
+                      <%= data[i]['OvrGMStus'] %>
+                    </td>
+                    <% } else { %>
+                      <td style="background-color: #c0392b">
+                        <%= data[i]['OvrGMStus'] %>
+                      </td>
+                      <% } %>
+                        <td>
+                          <%= data[i]['Service'] %>
+                        </td>
+                        <td>
+                          <%= data[i]['Bonded'] %>
+                        </td>
+                        <td>
+                          <%= data[i]['NonBonded'] %>
+                        </td>
+                        <td>
+                          <%= data[i]['TotalItem'] %>
+                        </td>
+                        <% if (data[i]['Country'] !=='TW' ) { %>
+                          <td>
+                            <table>
+                              <tr>
+                                <td>
+                                  <%= data[i]['Vendor'] %>
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-default"
+                                    onclick="window.location.href=`/get/hawbInformation?function=vendor&shipmentNo=<%= data[i]['ShipmentNo'] %>`">
+                                    <ion-icon size="large" name="airplane-outline"></ion-icon>
+                                  </button>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                          <% } else { %>
+                            <td>
+                              <%= data[i]['Vendor'] %>
+                            </td>
+                            <% } %>
 
 
 
-      </script>
-      </body>
+                              <td>
 
-      </html>
+                                <table>
+                                  <tr>
+                                    <td>
+                                      <%= data[i]['M_HAWB'] %>
+                                    </td>
+                                    <td>
+                                      <% if (data[i]['Country'] !== 'TW' ) { %>
+                                        <button type="button" class="btn btn-default"
+                                          onclick="window.location.href=`/get/hawbInformation?function=changeHAWB&Vendor=<%= data[i]['Vendor'] %>&ShipmentNo=<%= data[i]['ShipmentNo']%>`">
+                                          <ion-icon size="large" name="receipt-outline"></ion-icon>
+                                        </button>
+                                        <% } %>
+
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                              <td>
+                                <%= data[i]['D_HAWB'] %>
+                              </td>
+                              <td>
+                                <%= data[i]['R_CutTime'] %>
+                              </td>
+                              <td>
+                                <%= data[i]['R_PickupTime'] %>
+                                <% if (data[i]['Country'] !== 'TW') { %> 
+                                <button type="button" class="btn btn-default"
+                                  onclick="window.location.href=`/get/deliveryInform?function=changePickupDateTime&shipmentNo=<%= data[i]['ShipmentNo']%>`">
+                                  <ion-icon name="calendar-number-outline"></ion-icon>
+                                </button>
+                                <% } %>
+                              </td>
+                              <td style="font-weight: bold;">
+                                <%= data[i]['pkg_description'] %>
+                              </td>
+
+                              </tr>
+                              <% } %>
+                                </tbody>
+                                </table>
+
+                                <nav aria-label="Page navigation example">
+                                  <ul class="pagination">
+
+                                    <% if (Number(paggingData['currentPage'])==1) { %>
+                                      <li class="page-item disabled"><a class="page-link"
+                                          href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a>
+                                      </li>
+                                      <% } else { %>
+                                        <li class="page-item"><a class="page-link"
+                                            href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) -1 %>">Previous</a>
+                                        </li>
+                                        <% } %>
+                                          <% for(var i=1; i <=paggingData['pagePadding']; i++) { %>
+                                            <% if (i==paggingData['currentPage'] ) { %>
+                                              <li class="page-item disabled"><a class="page-link"
+                                                  href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
+                                                  <%= i %>
+                                                </a></li>
+                                              <% } else { %>
+                                                <li class="page-item"><a class="page-link"
+                                                    href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= i %>">
+                                                    <%= i %>
+                                                  </a></li>
+                                                <% } %>
+                                                  <% } %>
+                                                    <% if (
+                                                      Number(paggingData['pagePadding'])==Number(paggingData['currentPage'])
+                                                      ) { %>
+                                                      <li class="page-item disabled"><a class="page-link"
+                                                          href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a>
+                                                      </li>
+                                                      <% } else { %>
+                                                        <li class="page-item "><a class="page-link"
+                                                            href="/get/dashboard?function=<%=paggingData['pageType']%>&queryDate=<%=paggingData['pageQurty']%>&pagesize=<%=paggingData['pageSize']%>&currentPage=<%= Number(currentPage) +1 %>">Next</a>
+                                                        </li>
+                                                        <% } %>
+                                  </ul>
+                                </nav>
+                                
+
+                                <script src="/functionJS/controllog_render.js"></script>
+                                <script>
+                                  //window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.min.js');
+
+                                  window.addEventListener("pageshow", function (event) {
+                                    var historyTraversal = event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2);
+                                    if (historyTraversal) {
+                                      // Handle page restore.
+                                      //alert('refresh');
+                                      window.location.reload();
+                                    }
+                                  });
+                                  var createCutTimeReport = function(functions) {
+                                    var minLogNum = prompt('Please enter you Start Log Num')
+                                    if (minLogNum.length > 0) {
+                                      var maxLogNum = prompt('Please enter you End Log Num')
+                                      if (maxLogNum.length > 0) {
+                                        $.ajax({
+                                          url:`/get/mailInfor?function=cuttime_report_mail_outlook&controllog=${functions}&minLogNum=${minLogNum}&maxLogNum=${maxLogNum}&queryDate=<%=paggingData['pageQurty']%>`,
+                                          type: 'GET',
+                                          success: function (response) {
+                                            //console.log(response)
+                                            /*const datas = response.map(data => 
+                                            '<td>' + data.ShipmentCreateDateTime + '</td>' +
+                                            '<td>' + data.logNum + '</td>' +
+                                            '<td>' + data.Shpt + '</td>' +
+                                            '<td>' + data.HAWB_NO + '</td>' +
+                                            '<td>' + data['5105a'] + '</td>' +
+                                            '<td>' + data.Delivery + '</td>' +
+                                            '<td>' + data.ShipmentNo + '</td>' + 
+                                            '<td>' + data.Country + '</td>' +
+                                            '<td>' + data.ShipTo + '</td>' +
+                                            '<td></td>' +
+                                            '<td>' + data.R_PickupTime + '</td>' +
+                                            '<td></td>' */
+                                            const datas = response.map(data => '| ' + data.ShipmentCreateDateTime + ' | ' + data.logNum + ' | ' + data.Shpt + ' | '  + data.HAWB_NO + ' | ' + data['5105a'] + ' | ' + data.Delivery + ' | ' + data.ShipmentNo + ' | ' + data.Country + ' | ' + data.ShipTo + ' | ' + ' ' + ' | ' + data.R_PickupTime + ' | ' + ' ' + '%0A'
+                                            )
+                                            console.log(datas)
+
+                                            /*const header = `<table class="table table-bordered border-dark">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <td class="col">Time</td>
+                                                        <td class="col">S#</td>
+                                                        <td class="col">Shpt</td>
+                                                        <td class="col">HAWB NO</td>
+                                                        <td class="col">報單類別</td>
+                                                        <td class="col">DP</td>
+                                                        <td class="col">Delivery</td>
+                                                        <td class="col">Shipment</td>
+                                                        <td class="col">Country</td>
+                                                        <td class="col">Ship To</td>
+                                                        <td class="col">Tracking</td>
+                                                        <td class="col">ETA</td>
+                                                        <td class="col">TT</td>
+                                                    </tr>
+                                                </thead>`*/
+
+                                              /*const mailbody =  header + '<tr>' +datas + '</tr></tbody>' */
+                                              const mailbody =  datas
+
+                                              //window.open(`mailto:?subject=ILC_Cutime_Reprot&body=${mailbody}`)
+                                            //window.location.reload();
+                                          },
+                                          error: function (e) {
+                                            alert('Error: ' + e);
+                                          }
+                                        })
+                                      }
+                                    }
+                                  }; 
+                                  var CutimeReportDownloadMethod = function(functions) {
+                                    var minLogNum = prompt('Please enter you Start Log Num')
+                                    if (minLogNum.length > 0) {
+                                      var maxLogNum = prompt('Please enter you End Log Num')
+                                      if (maxLogNum.length > 0) {
+                                        //if (functions == 'control_log_downs') {
+                                          ///get/deliveryInform?function=cuttime_report&queryDate=2022-04&minLogNum=${minLogNum}&maxLogNum=${maxLogNum}&controllog=${functions}
+                                          window.open(`/get/deliveryInform?function=cuttime_report&queryDate=<%=paggingData['pageQurty']%>&minLogNum=${minLogNum}&maxLogNum=${maxLogNum}&controllog=${functions}`, 'popUpWindow')
+                                          /*$.ajax({
+                                          url: `/post/InformationSet?function=downs_check_list_batch&minLogNum=${minLogNum}&maxLogNum=${maxLogNum}&queryDate=<%=paggingData['pageQurty']%>`,
+                                          type: 'post',
+                                          success: function (response) {
+                                            //alert(response);
+                                            //window.location.reload();
+                                          },
+                                          error: function (e) {
+                                            alert('Error: ' + e);
+                                          }
+                                        });*/
+                                        //} else {
+                                          //alert('no batch job support.')
+                                        //}
+
+
+                                      } else {
+                                        alert('Error : no enter end Log Num')
+                                      }
+                                    } else {
+                                      alert('Error : no enter start Log Num')
+                                    }
+                                          
+                                  }
+                                  var callBatchJobMethod = function (functions) {
+                                    
+                                    var minLogNum = prompt('Please enter you Start Log Num')
+                                    
+                                    if (minLogNum.length > 0) {
+                                      var maxLogNum = prompt('Please enter you End Log Num')
+                                      if (maxLogNum.length > 0) {
+                                        if (functions == 'control_log_downs') {
+                                          window.open(`/get/deliveryInform?function=downs_check_list_batch&minLogNum=${minLogNum}&maxLogNum=${maxLogNum}&queryDate=<%=paggingData['pageQurty']%>`, 'popUpWindow')
+                                          /*$.ajax({
+                                          url: `/post/InformationSet?function=downs_check_list_batch&minLogNum=${minLogNum}&maxLogNum=${maxLogNum}&queryDate=<%=paggingData['pageQurty']%>`,
+                                          type: 'post',
+                                          success: function (response) {
+                                            //alert(response);
+                                            //window.location.reload();
+                                          },
+                                          error: function (e) {
+                                            alert('Error: ' + e);
+                                          }
+                                        });*/
+                                        } else {
+                                          alert('no batch job support.')
+                                        }
+
+
+                                      } else {
+                                        alert('Error : no enter end Log Num')
+                                      }
+                                    } else {
+                                      alert('Error : no enter start Log Num')
+                                    }
+                                  }
+
+
+                                  var confirmation = function (shipment) {
+
+
+
+                                    var answer = confirm('Delete Shipment: ' + shipment + " ??")
+
+                                    if (answer) {
+                                      var promption = prompt('Please enter you description')
+                                      if (promption.length > 0) {
+                                        alert("Start Delete shipment: " + shipment + ". from Control log")
+                                        $.ajax({
+                                          url: `/post/InformationSet?function=deletShipment&shipmentNo=${shipment}&pkgDescription=${promption}`,
+                                          type: 'POST',
+                                          success: function (response) {
+                                            alert(response);
+                                            window.location.reload();
+                                          },
+                                          error: function (e) {
+                                            alert('Error: ' + e);
+                                          }
+                                        });
+                                      } else {
+                                        alert('you have not entry description')
+                                      }
+
+                                    }
+                                    else {
+                                      alert("if you want delete, please re-click")
+                                    }
+                                  };
+
+                                  var updateComment = function (shipment) {
+                                    var answer = confirm('did you need update comment: ' + shipment + " ??")
+                                    
+
+                                    if (answer) {
+                                      var promption = prompt('Please enter you description')
+                                      if (promption.length > 0) {
+                                        alert("Start Update shipment: " + shipment + ". into Control log")
+                                        $.ajax({
+                                          url: `/post/InformationSet?function=updateShipment&shipmentNo=${shipment}&pkgDescription=${promption}`,
+                                          type: 'POST',
+                                          success: function (response) {
+                                            alert(response);
+                                            window.location.reload();
+                                          },
+                                          error: function (e) {
+                                            alert('Error: ' + e);
+                                          }
+                                        });
+
+                                      } else {
+                                        alert('you have not entry description')
+                                      }
+
+                                    }
+                                    else {
+                                      alert("if you want update comment, please re-click")
+                                    }
+                                  };
+                                  var searchMethod = function() {
+                                    let shipment = document.getElementById('searchValue').value
+                                    console.log(shipment)
+                                    //window.location.href(`/get/dashboard?function=<%=paggingData['pageType']%>&queryFunc=search&serachQuery=${shipment}&queryDate=<%=paggingData['pageQurty']%>&pagesize=1&currentPage=1`)
+                                    window.open(`/get/dashboard?function=<%=paggingData['pageType']%>&queryFunc=search&serachQuery=${shipment}&queryDate=<%=paggingData['pageQurty']%>&pagesize=1&currentPage=1`,"_self")
+                                  }
+
+
+
+
+
+
+                                </script>
+                                </body>
+
+                                </html>

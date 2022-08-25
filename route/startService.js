@@ -4,9 +4,16 @@ const path = require('path')
 const hostConfig = require('../db/dbConfig/hostConfig')
 
 
+
+
 hostConfig.hostGet().then(function(response){
     console.log(response)
-
+    require('dns').lookup(response.address, function(err) {
+        if(err) {
+            console.log('dns:'+err)
+        }
+        console.log('dns: success')
+    })
     
     if (response.Status = 1 ) {
         console.log('c')

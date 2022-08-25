@@ -1,0 +1,95 @@
+<%- include('./header.ejs', {title: title}); %>
+    <table class="table table-bordered border-dark">
+        <thead class="table-dark">
+            <tr>
+                <td class="col">Team Name</td>
+                <td class="col">Shpt</td>
+                <td class="col">DP</td>
+                <td class="col">SHP Condition</td>
+                <td class="col">Ship To</td>
+                <td class="col">Country</td>
+                <td class="col">Shipment No</td>
+                <td class="col">KPI</td>
+                <td class="col">Status</td>
+                <td class="col">Service Start</td>
+                <td class="col">Service End</td>
+                <td class="col">ReaminTime(min)</td>
+                <td class="col">Remark</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i < data.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= data[i]['Team_Name'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['Shpt'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['DP'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['SHPCondition'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['ShipTo'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['Country'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['ShipmentNo'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['KPI_Hour'] %>
+                    </td>
+                    <td>
+                        <% if(data[i]['TO_Stus']=='1' && data[i]['HU_Stus']=='1' && data[i]['Inv_Stus']=='1' ) { %>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100">SY</div>
+                            </div>
+                            <% } else if (data[i]['TO_Stus']=='1' && data[i]['HU_Stus']=='1' && data[i]['Inv_Stus']=='0'
+                                ) { %>
+                                <div class="progress" style="height: 20px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                        aria-valuemin="0" aria-valuemax="100">IN</div>
+                                </div>
+                                <% } else if (data[i]['TO_Stus']=='1' && data[i]['HU_Stus']=='0' &&
+                                    data[i]['Inv_Stus']=='0' ) { %>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 50%"
+                                            aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">PA</div>
+                                    </div>
+                                    <% } else if (data[i]['TO_Stus']=='0' && data[i]['HU_Stus']=='0' &&
+                                        data[i]['Inv_Stus']=='0' ) { %>
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar" role="progressbar" style="width: 25%"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">PK</div>
+                                        </div>
+                                        <% } else { %>
+                                            <div class="progress" style="height: 20px;">
+                                                <div class="progress-bar" role="progressbar" style="width: 0%"
+                                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">WA</div>
+                                            </div>
+                                            <% } %>
+                    </td>
+                    <td>
+                        <%= data[i]['Service_Start'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['Service_End'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['RemainTime'] %>
+                    </td>
+                    <td>
+                        <%= data[i]['pkg_description'] %>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+        </body>
+
+        </html>

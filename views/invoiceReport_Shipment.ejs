@@ -1,0 +1,114 @@
+<%- include('./header.ejs', {title: title}); %>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <p>
+                    <h4>Please Entry Shipment</h4>
+                </p>
+    
+                <div class="form-group">
+                    <label class="input-label" for="project-bar-input">Shipment</label>
+                    <input type="text" class="form-control" id="project-bar-input">
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="submit" class="modal-action btn btn-primary" data-dismiss="modal"
+                    id="checkInvoiceStatus">Check and Run</button>
+                <button type="submit" class="modal-action btn btn-primary" data-dismiss="modal"
+                id="checkInvoiceStatus" onclick="clearList()">Clean List</button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-8">
+        <table class="table">
+          <thead class="table-dark">
+  
+              <tr>
+                <td class="col">ImportDate</td>
+                <td class="col">Shipment</td>
+                <td class="col">Billing Document</td>
+                <td class="col">Invoice Create Stu.</td>
+                <td class="col">ECSID Check Stu.</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(var i=0; i < data.length; i++) { %>
+                  <tr>
+                      <td><%= data[i]['ImportDateTime'] %></td>
+                      <td><%= data[i]['ShipmentNo'] %></td>
+                      <td><%= data[i]['Bill_Doc'] %></td>
+                      <% if (data[i]['Bill_Doc_Check'] == '0') { %>
+                        <td>X</td>
+                        <% } else { %>
+                            <td>V</td>
+                        <% } %>
+                        <% if (data[i]['ECSID_Check'] == '0') { %>
+                            <td>X</td>
+                            <% } else { %>
+                                <td>V</td>
+                            <% } %>
+                      
+                      
+                  </tr>
+              <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function () {
+            $('#project-bar-input').focus();
+            $('.modal-content').keypress(function (e) {
+                if (e.which == 13) {
+                    var quota = $("#project-bar-input").val();
+                    if (quota == "") {
+                        alert("no data");
+                        
+                    } else {
+                        if (quota.length >= 8) {
+                            postShipment(quota.trim())
+                        }  else {
+                            alert("Please check Shipment");
+                        }
+                        
+                    }
+                }
+            })
+        });
+
+        var postShipment = function(shipment) {
+            $.ajax({
+                url: `/post/InformationSet?function=addShipmentToInvoceCheck&Shipment=${shipment}`,
+                type: 'POST',
+                success: function (response) {
+                //alert(response);
+                window.location.reload();
+                },
+                error: function (e) {
+                alert('Error: ' + e);
+                }
+            });
+        }
+        var clearList = function() {
+            $.ajax({
+                url: `/post/InformationSet?function=clearShipmentToInvoceCheck`,
+                type: 'POST',
+                success: function (response) {
+                //alert(response);
+                window.location.reload();
+                },
+                error: function (e) {
+                alert('Error: ' + e);
+                }
+            });
+        }
+</script>
+  
+  </body>
+  </html>

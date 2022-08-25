@@ -1,0 +1,146 @@
+<%- include('./header.ejs', {title: title}); %>
+<button type="button" class="btn btn-outline-dark" onclick="history.back()">Go Back</button>
+<h1><%= menuTitle %></h1>
+<div>
+
+
+    <table  class="table table-bordered border-dark" >
+      
+      <thead class="table-dark">
+
+        <tr>
+          <td class="col">Shpt</td>
+          <td class="col">DP</td>
+          <td class="col">Delivery</td>
+          <td class="col">Country</td>
+          <td class="col">Items</td>
+          <td class="col">Orde</td>
+          <td class="col">Sto.Location</td>
+          <td class="col">Ship-To</td>
+          <td class="col">Shipment No</td>
+          <td class="col">Wave No</td>
+          <td class="col">TO#</td>
+          <td class="col">Item</td>
+          <td class="col">Material</td>
+          <td class="col">Type</td>
+          <td class="col">Bin</td>
+          <td class="col">Qty</td>
+          <td class="col">CS</td>
+          <td class="col">Batch</td>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i < data.length; i++) { %>
+           <tr>
+             
+            
+             
+             <td><%= data[i]['Shpt'] %>  
+              <% if (data[i]['CN_Ctrl_Parts'] == 1) { %>
+                  <ion-icon style="width:25px; height:25px" src="/img/china_flag.svg"></ion-icon>
+              <% } %>
+              <% if (data[i]['W_Parts_Control'] == 1) { %>
+                  <ion-icon style="width:25px; height:25px" src="/img/W_Parts.svg"></ion-icon>
+
+              <% } %>
+              <% if (data[i]['UNR_Control'] == 1) { %>
+                  <ion-icon style="width:25px; height:25px" src="/img/UNR_REG_Parts.svg"></ion-icon>
+
+              <% } %>
+              <% if (data[i]['HAZ_Control'] == 1) { %>
+                  <ion-icon style="width:25px; height:25px" src="/img/HAZ_PArts.svg"></ion-icon>
+
+              <% } %>
+              <% if (data[i]['TOCreateItem'] == 0) { %>
+                <ion-icon style="width:50px; height:25px" src="/img/TO_Create_Issue.svg"></ion-icon>
+
+            <% } %>
+            </td>
+             <td><%= data[i]['DP'] %></td>
+             <td>
+               <table>
+                <td><%= data[i]['Delivery'] %></td>
+                
+               </table>
+             </td>
+             
+             <td><%= data[i]['Country'] %></td>
+             <td><%= data[i]['Items'] %></td>
+             <td><%= data[i]['Orde'] %></td>
+             <td><%= data[i]['StorageLocation'] %></td>
+             <td><%= data[i]['Ship-To'] %></td>
+             <td><%= data[i]['ShipmentNo'] %></td>
+             <td>
+              <table>
+                <td><%= data[i]['WaveGrpNo.'] %></td>
+               
+              </table>
+             </td>
+           
+             
+             <td><%= data[i]['TONumber'] %></td>
+             <td><%= data[i]['Item'] %></td>
+             <td>
+               <table>
+                <td><%= data[i]['Material'] %></td>
+                <td>
+                  <button type="button" class="btn btn-default"
+                          onclick="remvoeTransfer(`<%= data[i]['TONumber'] %>`,`<%= data[i]['Item'] %>`,`<%= data[i]['Material'] %>`)">
+                          <ion-icon style="color: #c0392b;" name="trash-bin"></ion-icon>
+                        </button>
+                </td>
+               </table>
+             </td>
+            
+             <td><%= data[i]['Source_Typ'] %></td>
+             <td><%= data[i]['Source_Bin'] %></td>
+             <td><%= data[i]['Sourcetargetqty'] %></td>
+             <td><%= data[i]['CS'] %></td>
+             <td><%= data[i]['Batch'] %></td>
+                  
+           </tr>
+        <% } %>
+      </tbody>
+        </table>
+      </div>
+        <button type="button" class="btn btn-outline-dark" onclick="history.back()">Go Back</button>
+        <script>
+            var remvoeDelivery = function(delivery) {
+              var answer = confirm('Delete Delivery: ' + delivery + " ??")
+              if (answer) {
+                alert("Start Delete shipment: " + delivery + ". from Control log")
+                  $.ajax({
+                    url: `/post/InformationSet?function=deleteDelivery&Delivery=${delivery}`,
+                    type: 'POST',
+                    success: function (response) {
+                      alert(response);
+                      window.location.reload();
+                    },
+                    error: function (e) {
+                      alert('Error: ' + e);
+                    }
+                  });
+              }
+
+            }
+
+            var remvoeTransfer = function(TONumber, TOItem, Material) {
+              var answer = confirm(`Delete TO#: [${TONumber}], Material: [${Material}]`)
+              if (answer) {
+                alert(`Start Delete TO#: [${TONumber}], Material: [${Material}]`)
+                  $.ajax({
+                    url: `/post/InformationSet?function=deleteTransferItem&TOnumber=${TONumber}&TOitem=${TOItem}&Material=${Material}`,
+                    type: 'POST',
+                    success: function (response) {
+                      alert(response);
+                      window.location.reload();
+                    },
+                    error: function (e) {
+                      alert('Error: ' + e);
+                    }
+                  });
+              }
+            }
+        </script>
+      </body>
+      </html>
