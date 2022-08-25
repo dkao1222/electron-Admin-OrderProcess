@@ -32,13 +32,13 @@ jobs:
           npx rimraf "dist_electron/!(*.exe|*.dmg)"
           
       - name: upload artifacts
-        uses: actions/electron-Admin-OrderProcess@v1
+        uses: actions/electron-Admin-OrderProcess
         with:
           name: ${{ matrix.os }}
           path: dist_electron
           
       - name: release
-        uses: dkao1222/electron-Admin-OrderProcess@v1
+        uses: dkao1222/electron-Admin-OrderProcess
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: "dist_electron/**"
