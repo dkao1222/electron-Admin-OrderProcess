@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: 12
 
@@ -28,14 +28,4 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           npm run nsis
-      - name: cleanup artifacts
-        run: |
-          npx rimraf "dist_electron/!(*.exe|*.dmg)"
-          
-      - name: upload artifacts
-        uses: actions/electron-Admin-OrderProcess
-        with:
-          name: ${{ matrix.os }}
-          path: dist_electron
-          
-      
+
