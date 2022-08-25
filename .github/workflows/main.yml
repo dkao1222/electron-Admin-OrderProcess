@@ -14,12 +14,13 @@ jobs:
         
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v1
         with:
           node-version: 12
+          
       - name: npm install
         run: |
           npm install
