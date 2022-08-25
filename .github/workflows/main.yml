@@ -14,7 +14,7 @@ jobs:
         
     steps:
       - name: Check out Git repository
-        uses: actions/electron-Admin-OrderProcess@v1
+        uses: actions/checkout@v1
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v2
@@ -27,15 +27,15 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           npm run nsis
-      - name: cleanup artifacts
-        run: |
-          npx rimraf "dist_electron/!(*.exe|*.dmg)"
+      #- name: cleanup artifacts
+      #  run: |
+      #    npx rimraf "dist_electron/!(*.exe|*.dmg)"
           
-      - name: upload artifacts
-        uses: actions/electron-Admin-OrderProcess@v1
-        with:
-          name: ${{ matrix.os }}
-          path: dist_electron
+      #- name: upload artifacts
+      #  uses: actions/electron-Admin-OrderProcess@v1
+      #  with:
+      #    name: ${{ matrix.os }}
+      #    path: dist_electron
           
       - name: release
         uses: dkao1222/electron-Admin-OrderProcess@v1
