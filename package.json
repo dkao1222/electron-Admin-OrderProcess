@@ -1,6 +1,6 @@
 {
   "name": "node_orderprocess_application_v1",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "",
   "main": "main.js",
   "scripts": {
