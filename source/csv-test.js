@@ -308,7 +308,7 @@ async function LT22_Pares(fileName, plant) {
                 db.run(` update TBL_LT22_Prod
                 set CS = 'C'
                 from (
-                select * from TBL_LT22_Prod
+                    select * from TBL_LT22_Prod where date(ImportDateTime) > date('now', '-3 day')
                 where Dest_targetqty <> ActQty
                 and Conf_date <> ''
                 ) t
